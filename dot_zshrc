@@ -112,6 +112,8 @@ alias p="sudo pacman"
 alias pacman="sudo pacman"
 alias s=sudo
 alias vim=nvim
+alias c=chzmoi
+alias q=exit
 
 
 bindkey '^H' backward-kill-word

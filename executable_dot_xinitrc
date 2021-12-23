@@ -3,7 +3,11 @@ exec ~/.fehbg &
 picom -f &
 numlockx &
 
+{{ if (eq .chezmoi.hostname "desktop-arch" }}
 xrdb /home/xander/.Xresources
+ckb-next -b &
+{{ end }}
+
 /usr/bin/dunst &
 
 xset s 3600
@@ -11,7 +15,6 @@ xset dpms 0 0 3600
 xset m 0
 xset b off
 
-ckb-next -b &
 
 xbindkeys
 setxkbmap -option 'caps:super'

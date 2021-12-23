@@ -1,0 +1,6 @@
+#!/bin/sh
+{{ if (eq .chezmoi.hostname "desktop-arch") }}
+feh --no-fehbg --bg-tile '/home/xander/Pictures/lance-asper-5Kp5LVjINgI-unsplash.jpg' 
+{{ else if (eq .chezmoi.hostname "laptop-arch") }}
+feh --no-fehbg --bg-fill '/home/xander/Pictures/backgrounds/atom-one-dark-triangles-wallpaper.png'
+{{ end }}

@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-tile '/home/xander/Pictures/lance-asper-5Kp5LVjINgI-unsplash.jpg' 

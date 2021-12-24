@@ -114,6 +114,8 @@ alias s=sudo
 alias vim=nvim
 alias c=chezmoi
 alias q=exit
+alias v=nvim
+alias sv=sudoedit
 
 export EDITOR=nvim
 

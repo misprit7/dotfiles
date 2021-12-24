@@ -3,12 +3,12 @@ exec ~/.fehbg &
 picom -f &
 numlockx &
 
-{{ if (eq .chezmoi.hostname "desktop-arch" }}
-xrdb /home/xander/.Xresources
+{{ if (eq .chezmoi.hostname "desktop-arch") }}
 ckb-next -b &
 {{ end }}
 
 /usr/bin/dunst &
+xrdb /home/xander/.Xresources
 
 xset s 3600
 xset dpms 0 0 3600

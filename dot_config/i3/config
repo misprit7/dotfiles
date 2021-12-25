@@ -17,7 +17,7 @@ set $wm_setting_key_right            l
 
 set $wm_setting_app_terminal         kitty
 set $wm_setting_app_browser          firefox
-set $wm_setting_app_launcher         dmenu_run
+set $wm_setting_app_launcher         ~/.config/rofi/bin/launcher_text
 set $wm_setting_app_compositor       picom
 
 set $wm_color_border_active_bg       #81A1C1

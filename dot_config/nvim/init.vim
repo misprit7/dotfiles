@@ -108,6 +108,12 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Switch panes insert mode
+imap <C-j> <C-W>j
+imap <C-k> <C-W>k
+imap <C-h> <C-W>h
+imap <C-l> <C-W>l
+
 " Explorer
 :nmap <space>e <Cmd>CocCommand explorer<CR>
 

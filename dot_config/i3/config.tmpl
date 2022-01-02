@@ -177,7 +177,7 @@ bar {
     }
 }
 
-
+{{ if (eq .chezmoi.hostname "laptop-arch") }}
 bar {
     font pango:DejaVu Sans Mono, Font Awesome 5 Free 12
     position bottom
@@ -192,6 +192,7 @@ bar {
         urgent_workspace #2f343a #900000 #ffffff
     }
 }
+{{ end }}
 
 ### Miscellaneous settings ###
 # Set the font used for titlebars (which are hidden here)

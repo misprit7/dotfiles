@@ -65,6 +65,7 @@ set ignorecase
 " Mouse
 set mouse=a
 
+
 " Workaround to prevent vim from breaking background color in kitty
 let &t_ut=''
 
@@ -82,8 +83,14 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'sheerun/vim-polyglot'
+Plug 'lervag/vimtex'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'sirver/ultisnips'
+
+Plug 'ctrlpvim/ctrlp.vim'
+
 
 call plug#end()
 
@@ -93,27 +100,44 @@ runtime coc.vim
 
 color onedark
 
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+" Spell checker
+setlocal spell
+set spelllang=nl,en_gb
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
 " Remaps
+" Leader
+let mapleader = " "
+
 " Scrolling
 nnoremap <S-j> <C-e>
 nnoremap <S-k> <C-y>
+
+" Switch tab
+nnoremap <S-h> gT
+nnoremap <S-l> gt
 
 " Backspace
 noremap! <C-BS> <C-w>
 noremap! <C-h> <C-w>
 
 " Switch panes
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-" Switch panes insert mode
-imap <C-j> <C-W>j
-imap <C-k> <C-W>k
-imap <C-h> <C-W>h
-imap <C-l> <C-W>l
+map <Leader>j <C-W>j
+map <Leader>k <C-W>k
+map <Leader>h <C-W>h
+map <Leader>l <C-W>l
 
 " Explorer
-:nmap <space>e <Cmd>CocCommand explorer<CR>
+nmap <Leader>e <Cmd>CocCommand explorer<CR>
+nmap <Leader>b <Cmd>CocCommand explorer --sources=buffer+<CR>
 

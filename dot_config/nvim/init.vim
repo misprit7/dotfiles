@@ -70,10 +70,6 @@ set mouse=a
 let &t_ut=''
 
 
-" Adds lilypond configuration
-filetype off
-set runtimepath+=~/.config/nvim/lilypond
-filetype on
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -83,15 +79,28 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
-Plug 'joshdick/onedark.vim', { 'as': 'onedark' }
+" let g:onedark_hide_endofbuffer=1
+" Plug 'joshdick/onedark.vim', { 'as': 'onedark' }
+Plug 'dracula/vim', {'as':'dracula'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+let g:polyglot_disabled = ['lilypond']
 Plug 'sheerun/vim-polyglot'
+
+
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
 Plug 'lervag/vimtex'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 Plug 'sirver/ultisnips'
 
 Plug 'ctrlpvim/ctrlp.vim'
@@ -99,27 +108,21 @@ Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
 
-let g:onedark_hide_endofbuffer=1
 
 runtime coc.vim
 
-color onedark
-
-let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
-let g:vimtex_quickfix_mode=0
-set conceallevel=1
-let g:tex_conceal='abdmg'
-
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+" color onedark
+colorscheme dracula
 
 " Spell checker
 setlocal spell
 set spelllang=nl,en_us
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
+" Adds lilypond configuration
+filetype off
+set runtimepath+=~/.config/nvim/lilypond
+filetype on
 
 " Remaps
 " Leader

@@ -70,6 +70,11 @@ set mouse=a
 let &t_ut=''
 
 
+" Adds lilypond configuration
+filetype off
+set runtimepath+=~/.config/nvim/lilypond
+filetype on
+
 call plug#begin('~/.config/nvim/plugged')
 
 "Fugitive Vim Github Wrapper
@@ -112,8 +117,9 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 " Spell checker
 setlocal spell
-set spelllang=nl,en_gb
+set spelllang=nl,en_us
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
 
 " Remaps
 " Leader

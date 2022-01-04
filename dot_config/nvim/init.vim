@@ -96,12 +96,13 @@ set conceallevel=1
 let g:tex_conceal='abdmg'
 Plug 'lervag/vimtex'
 
+let g:UltiSnipsExpandTrigger = '<insert>'
+" let g:UltiSnipsJumpForwardTrigger = '<tab>'
+" let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+Plug 'sirver/ultisnips'
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-Plug 'sirver/ultisnips'
 
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -115,7 +116,8 @@ runtime coc.vim
 colorscheme dracula
 
 " Spell checker
-setlocal spell
+" setlocal spell
+autocmd BufRead,BufNewFile *.md setlocal spell
 set spelllang=nl,en_us
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
@@ -146,7 +148,13 @@ map <Leader>k <C-W>k
 map <Leader>h <C-W>h
 map <Leader>l <C-W>l
 
+map <Leader>n :bn<cr>
+map <Leader>p :bp<cr>
+map <Leader>d :bd<cr>  
+map <Leader>c :b #<cr>  
+
 " Explorer
 nmap <Leader>e <Cmd>CocCommand explorer<CR>
 nmap <Leader>b <Cmd>CocCommand explorer --sources=buffer+<CR>
+
 

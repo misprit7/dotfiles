@@ -1,15 +1,7 @@
-# SkyyySi's Nordic i3 config file
-#
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
-
-### Variables for settings (This makes changing them WAY easyer!) ###
+### Settings ###
 set $mod                             Mod4
 set $smod                            Shift
 set $wm_setting_font                 pango:Source Sans Pro, Semibold 11
-set $wm_setting_gap_width            5
-set $wm_setting_gap_heigth           5
-set $wm_setting_gap_inner            10
-set $wm_setting_border_size          2
 set $wm_setting_key_left             h
 set $wm_setting_key_down             j
 set $wm_setting_key_up               k
@@ -19,12 +11,6 @@ set $wm_setting_app_terminal         kitty
 set $wm_setting_app_browser          firefox
 set $wm_setting_app_launcher         ~/.config/rofi/bin/launcher_text
 set $wm_setting_app_compositor       picom
-
-set $wm_color_border_active_bg       #81A1C1
-set $wm_color_border_active_fg       #3B4252
-set $wm_color_border_inactive_bg     #3B4252
-set $wm_color_border_inactive_fg     #D8DEE9
-set $wm_color_background             #2E3440
 
 set $wm_top_right					 DisplayPort-1
 set $wm_top_left					 DisplayPort-2
@@ -47,16 +33,16 @@ exec_always --no-startup-id $wm_setting_app_compositor
 ### Workspaces ###
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1  "    1    "
-set $ws2  "    2    "
-set $ws3  "    3    "
-set $ws4  "    4    "
-set $ws5  "    5    "
-set $ws6  "    6    "
-set $ws7  "    7    "
-set $ws8  "    8    "
-set $ws9  "    9    "
-set $ws10 "    10    "
+set $ws1  "1"
+set $ws2  "2"
+set $ws3  "3"
+set $ws4  "4"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9"
+set $ws10 "10"
 
 # Switch to workspace n
 bindsym $mod+1 workspace $ws1
@@ -123,24 +109,25 @@ mode"resize" {
 bindsym $mod+r mode "resize"
 
 ### Gaps ###
-gaps horizontal $wm_setting_gap_width
-gaps vertical   $wm_setting_gap_heigth
-gaps inner		$wm_setting_gap_inner
+gaps horizontal 3
+gaps vertical   3
+gaps inner		5
 # smart_gaps on
 
 ### Borders ###
-default_border pixel $wm_setting_border_size
-default_floating_border pixel $wm_setting_border_size
+default_border pixel 3
+default_floating_border pixel 3
 smart_borders on
 
 ### Colors ###
-# class                 border                       background                   text                         indicator                    child_border
-client.focused          $wm_color_border_active_bg   $wm_color_border_active_bg   $wm_color_border_active_fg   $wm_color_border_active_bg   $wm_color_border_active_bg
-client.focused_inactive $wm_color_border_inactive_bg $wm_color_border_inactive_bg $wm_color_border_inactive_fg $wm_color_border_inactive_bg $wm_color_border_inactive_bg
-client.unfocused        $wm_color_border_inactive_bg $wm_color_border_inactive_bg $wm_color_border_inactive_fg $wm_color_border_inactive_bg $wm_color_border_inactive_bg
-client.urgent           $wm_color_border_inactive_bg $wm_color_border_inactive_bg $wm_color_border_inactive_fg $wm_color_border_inactive_bg $wm_color_border_inactive_bg
-client.placeholder      $wm_color_border_inactive_bg $wm_color_border_inactive_bg $wm_color_border_inactive_fg $wm_color_border_inactive_bg $wm_color_border_inactive_bg
-client.background       $wm_color_background
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+
+client.background       #F8F8F2
 
 ### i3bar ###
 bar {
@@ -150,13 +137,15 @@ bar {
 	output $wm_top_left
 	output $wm_top_right
     colors {
-        separator #666666
-        background #222222
-        statusline #dddddd
-        focused_workspace #0088CC #0088CC #ffffff
-        active_workspace #333333 #333333 #ffffff
-        inactive_workspace #333333 #333333 #888888
-        urgent_workspace #2f343a #900000 #ffffff
+		background #282A36
+		statusline #F8F8F2
+		separator  #44475A
+
+		focused_workspace  #bd93f9 #bd93f9 #F8F8F2
+		active_workspace   #282A36 #44475A #F8F8F2
+		inactive_workspace #282A36 #282A36 #BFBFBF
+		urgent_workspace   #FF5555 #FF5555 #F8F8F2
+		binding_mode       #FF5555 #FF5555 #F8F8F2
     }
 }
 
@@ -164,35 +153,23 @@ bar {
     font pango:DejaVu Sans Mono, Font Awesome 5 Free 12
     position bottom
     status_command /bin/i3status-rs /home/xander/.config/i3status-rust/config.toml
+{{ if (eq .chezmoi.hostname "desktop-arch") }}
 	output $wm_bottom_right
 	output $wm_bottom_left
-    colors {
-        separator #666666
-        background #222222
-        statusline #dddddd
-        focused_workspace #0088CC #0088CC #ffffff
-        active_workspace #333333 #333333 #ffffff
-        inactive_workspace #333333 #333333 #888888
-        urgent_workspace #2f343a #900000 #ffffff
-    }
-}
-
-{{ if (eq .chezmoi.hostname "laptop-arch") }}
-bar {
-    font pango:DejaVu Sans Mono, Font Awesome 5 Free 12
-    position bottom
-    status_command /bin/i3status-rs /home/xander/.config/i3status-rust/config.toml
-    colors {
-        separator #666666
-        background #222222
-        statusline #dddddd
-        focused_workspace #0088CC #0088CC #ffffff
-        active_workspace #333333 #333333 #ffffff
-        inactive_workspace #333333 #333333 #888888
-        urgent_workspace #2f343a #900000 #ffffff
-    }
-}
 {{ end }}
+	workspace_min_width 40
+    colors {
+		background #282A36
+		statusline #F8F8F2
+		separator  #44475A
+
+		focused_workspace  #bd93f9 #bd93f9 #F8F8F2
+		active_workspace   #282A36 #44475A #F8F8F2
+		inactive_workspace #282A36 #282A36 #BFBFBF
+		urgent_workspace   #FF5555 #FF5555 #F8F8F2
+		binding_mode       #FF5555 #FF5555 #F8F8F2
+    }
+}
 
 ### Miscellaneous settings ###
 # Set the font used for titlebars (which are hidden here)

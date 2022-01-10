@@ -99,10 +99,10 @@ Plug 'lervag/vimtex'
 let g:UltiSnipsExpandTrigger = '<insert>'
 " let g:UltiSnipsJumpForwardTrigger = '<tab>'
 " let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:python3_host_prog = '/usr/bin/python3'
 Plug 'sirver/ultisnips'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -151,7 +151,7 @@ map <Leader>l <C-W>l
 map <Leader>n :bn<cr>
 map <Leader>p :bp<cr>
 map <Leader>d :bd<cr>  
-map <Leader>c :b #<cr>  
+map <Leader>s :b #<cr>  
 
 " Explorer
 nmap <Leader>e <Cmd>CocCommand explorer<CR>

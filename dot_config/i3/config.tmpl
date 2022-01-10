@@ -11,6 +11,7 @@ set $wm_setting_app_terminal         kitty
 set $wm_setting_app_browser          firefox
 set $wm_setting_app_launcher         ~/.config/rofi/bin/launcher_text
 set $wm_setting_app_compositor       picom
+set $wm_setting_app_screenshot       flameshot gui
 
 set $wm_top_right					 DisplayPort-1
 set $wm_top_left					 DisplayPort-2
@@ -26,6 +27,9 @@ bindsym $mod+$smod+Return exec $wm_setting_app_browser
 
 # Start a program launcher
 bindsym $mod+d exec $wm_setting_app_launcher
+
+# Start a program launcher
+bindsym $mod+$smod+s exec $wm_setting_app_screenshot
 
 # Run a window compositor (for effects like transparency or full VSync)
 exec_always --no-startup-id $wm_setting_app_compositor

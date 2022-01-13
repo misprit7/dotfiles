@@ -127,6 +127,10 @@ bindkey '^H' backward-kill-word
 bindkey '5~' kill-word
 eval "$(dircolors ~/.dircolors)"
 
+# setopt cdablevars
+# sch=$HOME/OneDrive/school/year3/term2
+hash -d sch=$HOME/OneDrive/school/year3/term2
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 eval "$(pyenv init -)"

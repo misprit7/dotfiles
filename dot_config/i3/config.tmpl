@@ -34,6 +34,8 @@ bindsym $mod+$smod+s exec $wm_setting_app_screenshot
 # Run a window compositor (for effects like transparency or full VSync)
 exec_always --no-startup-id $wm_setting_app_compositor
 
+exec_always --no-startup-id "nm-applet --indicator &"
+
 ### Workspaces ###
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.

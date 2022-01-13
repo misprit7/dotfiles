@@ -194,8 +194,11 @@ bindsym $mod+$smod+q kill
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+$smod+r restart
 
-bindsym $mod+v split horizontal
-bindsym $mod+c split vertical
+bindsym $mod+c split horizontal
+bindsym $mod+v split vertical
+
+bindsym $mod+p focus parent
+bindsym $mod+q focus child
 
 bindsym $mod+s layout stacking
 bindsym $mod+m layout toggle splith splitv tabbed

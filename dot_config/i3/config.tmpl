@@ -204,3 +204,6 @@ bindsym $mod+a layout tabbed
 # Exit i3 (logs you out of your X session)
 bindsym $mod+$smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
  
+# Misc. specific configuration
+for_window [class="zoom"] floating enable
+

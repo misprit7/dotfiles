@@ -92,13 +92,13 @@ Plug 'sheerun/vim-polyglot'
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
-set conceallevel=1
-let g:tex_conceal='abdmg'
+" set conceallevel=1
+" let g:tex_conceal='abdmg'
 Plug 'lervag/vimtex'
 
 let g:UltiSnipsExpandTrigger = '<insert>'
-" let g:UltiSnipsJumpForwardTrigger = '<tab>'
-" let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:python3_host_prog = '/usr/bin/python3'
 Plug 'sirver/ultisnips'
 

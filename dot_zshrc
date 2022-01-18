@@ -120,6 +120,7 @@ alias c=chezmoi
 alias q=exit
 alias v=nvim
 alias sv=sudoedit
+alias deskssh="ssh xander@154.5.125.219 -p 9002"
 
 export EDITOR=nvim
 

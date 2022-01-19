@@ -25,13 +25,6 @@ urlcolor=cyan,
 
 \graphicspath{ {images/} }
 
-\newcommand{\RR}{\mathbb{R}}
-\newcommand{\CC}{\mathbb{C}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\QQ}{\mathbb{Q}}
-\newcommand{\NN}{\mathbb{N}}
-\newcommand{\st}{\text{ s.t.}\ }
-
 \begin{document}
 \pagenumbering{arabic}
 \title{$1}
@@ -508,7 +501,7 @@ snippet ~~ "~" iA
 endsnippet
 
 context "math()"
-snippet set "set" wA
+snippet sss "set" wA
 \\{$1\\} $0
 endsnippet
 
@@ -643,6 +636,11 @@ endsnippet
 
 snippet DD "D" iA
 \mathbb{D}
+endsnippet
+
+
+snippet qs "Question" bA
+{\noindent\bf Question $1.} $0
 endsnippet
 
 # vim:ft=snippets

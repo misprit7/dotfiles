@@ -203,8 +203,11 @@ bindsym $mod+p focus parent
 bindsym $mod+q focus child
 
 bindsym $mod+s layout stacking
-bindsym $mod+m layout toggle splith splitv tabbed
+bindsym $mod+m layout toggle all
 bindsym $mod+a layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+t focus mode_toggle
 
 # Exit i3 (logs you out of your X session)
 bindsym $mod+$smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"

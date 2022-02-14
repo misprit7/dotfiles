@@ -109,6 +109,15 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
+# zsh parameter completion for the dotnet CLI
+_dotnet_zsh_complete()
+{
+  local completions=("$(dotnet complete "$words")")
+
+  reply=( "${(ps:\n:)completions}" )
+}
+compctl -K _dotnet_zsh_complete dotnet
+
 # Setup pyenv
 eval "$(pyenv virtualenv-init -)"
 
@@ -120,6 +129,7 @@ alias c=chezmoi
 alias q=exit
 alias v=nvim
 alias sv=sudoedit
+alias z=zathura
 alias deskssh="ssh xander@154.5.125.219 -p 9002"
 
 export EDITOR=nvim

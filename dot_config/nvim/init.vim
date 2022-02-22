@@ -32,7 +32,7 @@ set showmode
 set showcmd
 
 " Bracket matching
-set matchpairs+=<:>
+" set matchpairs+=<:>
 
 " Show line number
 set number
@@ -118,6 +118,7 @@ colorscheme dracula
 " Spell checker
 " setlocal spell
 autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd BufRead,BufNewFile *.tex setlocal spell
 set spelllang=nl,en_us
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
@@ -125,6 +126,11 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 filetype off
 set runtimepath+=~/.config/nvim/lilypond
 filetype on
+
+" Get rid of lag editing LaTeX files
+" let g:tex_fast= ""
+let g:loaded_matchparen=1
+let g:vimtex_matchparen_enabled = 0
 
 " Remaps
 " Leader

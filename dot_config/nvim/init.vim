@@ -129,6 +129,8 @@ filetype on
 
 " Get rid of lag editing LaTeX files
 " let g:tex_fast= ""
+" https://github.com/lervag/vimtex/issues/1727
+" https://jchain.github.io/vim-gets-slow-when-editing-latex-file.html
 let g:loaded_matchparen=1
 let g:vimtex_matchparen_enabled = 0
 

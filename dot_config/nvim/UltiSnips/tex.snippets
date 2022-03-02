@@ -105,7 +105,7 @@ endsnippet
 
 snippet mk "Math" wA
 $${1}$`!p
-if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ';', ':', '!', ')', ']']:
 	snip.rv = ' '
 else:
 	snip.rv = ''
@@ -511,10 +511,10 @@ snippet sss "set" wA
 \\{$1\\} $0
 endsnippet
 
-context "math()"
-snippet cc "subset" Ai
-\subset 
-endsnippet
+# context "math()"
+# snippet cc "subset" Ai
+# \subset 
+# endsnippet
 
 snippet notin "not in " iA
 \not\in 

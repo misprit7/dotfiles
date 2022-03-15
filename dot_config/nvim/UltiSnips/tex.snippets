@@ -444,7 +444,7 @@ endsnippet
 
 priority 100
 context "math()"
-snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|tan)' "ln" rwA
+snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|tan|hbar)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -610,7 +610,7 @@ endsnippet
 
 priority 100
 context "math()"
-snippet "([a-zA-Z])bar" "bar" riA
+snippet "([a-gi-zA-Z])bar" "bar" riA
 \overline{`!p snip.rv=match.group(1)`}
 endsnippet
 

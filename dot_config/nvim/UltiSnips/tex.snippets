@@ -1,4 +1,4 @@
-# Taken from here: https://github.com/gillescastel/latex-snippets
+#Taken from here: https://github.com/gillescastel/latex-snippets
 global !p
 def math():
 	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
@@ -444,7 +444,7 @@ endsnippet
 
 priority 100
 context "math()"
-snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|tan|hbar)' "ln" rwA
+snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|tan|hbar|phi|psi|theta)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -456,7 +456,7 @@ endsnippet
 
 priority 200
 context "math()"
-snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)' "ln" rwA
+snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -511,7 +511,7 @@ snippet sss "set" wA
 \\{$1\\} $0
 endsnippet
 
-# context "math()"
+context "math()"
 # snippet cc "subset" Ai
 # \subset 
 # endsnippet
@@ -612,12 +612,6 @@ priority 100
 context "math()"
 snippet "([a-gi-zA-Z])bar" "bar" riA
 \overline{`!p snip.rv=match.group(1)`}
-endsnippet
-
-priority 10
-context "math()"
-snippet "hat" "hat" riA
-\hat{$1}$0
 endsnippet
 
 priority 100

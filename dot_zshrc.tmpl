@@ -118,8 +118,6 @@ _dotnet_zsh_complete()
 }
 compctl -K _dotnet_zsh_complete dotnet
 
-# Setup pyenv
-eval "$(pyenv virtualenv-init -)"
 
 alias p="sudo pacman"
 alias pacman="sudo pacman"
@@ -136,12 +134,19 @@ export EDITOR=nvim
 
 bindkey '^H' backward-kill-word
 bindkey '5~' kill-word
-eval "$(dircolors ~/.dircolors)"
 
 # setopt cdablevars
 # sch=$HOME/OneDrive/school/year3/term2
 hash -d sch=$HOME/OneDrive/school/year3/term2
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+{{ if not (eq .chezmoi.hostname "LUSC02W409WHTDH") }}
+eval "$(dircolors ~/.dircolors)"
+# Setup pyenv
+eval "$(pyenv virtualenv-init -)"
 eval "$(pyenv init -)"
+{{ end }}
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+

@@ -94,13 +94,13 @@ let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
 " set conceallevel=1
 " let g:tex_conceal='abdmg'
-Plug 'lervag/vimtex'
+" Plug 'lervag/vimtex'
 
 let g:UltiSnipsExpandTrigger = '<insert>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:python3_host_prog = '/usr/bin/python3'
-Plug 'sirver/ultisnips'
+" Plug 'sirver/ultisnips'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -108,9 +108,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 
 
 call plug#end()
-
-
-runtime coc.vim
 
 " color onedark
 colorscheme dracula
@@ -134,9 +131,14 @@ filetype on
 let g:loaded_matchparen=1
 let g:vimtex_matchparen_enabled = 0
 
+" Register preloads
+let @c="/******************************************************************************\n * \n ******************************************************************************/"
+
 " Remaps
 " Leader
 let mapleader = " "
+
+runtime coc.vim
 
 " Scrolling
 nnoremap <S-j> <C-e>
@@ -158,11 +160,13 @@ map <Leader>l <C-W>l
 
 map <Leader>n :bn<cr>
 map <Leader>p :bp<cr>
-map <Leader>d :bd<cr>  
+" map <Leader>d :bd<cr>  
+map <Leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
 map <Leader>s :b #<cr>  
 
 " Explorer
 nmap <Leader>e <Cmd>CocCommand explorer<CR>
 nmap <Leader>b <Cmd>CocCommand explorer --sources=buffer+<CR>
+
 
 

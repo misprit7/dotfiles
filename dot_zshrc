@@ -132,6 +132,10 @@ alias sv=sudoedit
 alias z=zathura
 alias deskssh="ssh xander@154.5.125.219 -p 9002"
 
+# Use vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
 export EDITOR=nvim
 
 export PATH="$HOME/opt/cross/bin:$PATH"

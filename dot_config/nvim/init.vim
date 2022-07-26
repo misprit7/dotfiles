@@ -31,6 +31,9 @@ set laststatus=2
 set showmode
 set showcmd
 
+" Fast redrawing during macros
+set lazyredraw
+
 " Bracket matching
 " set matchpairs+=<:>
 

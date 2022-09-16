@@ -115,9 +115,11 @@ mode"resize" {
 bindsym $mod+r mode "resize"
 
 ### Gaps ###
+{{ if (eq .chezmoi.hostname "desktop-arch") }}
 gaps horizontal 3
 gaps vertical   3
 gaps inner		5
+{{ end }}
 # smart_gaps on
 
 ### Borders ###
@@ -214,4 +216,5 @@ bindsym $mod+$smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
  
 # Misc. specific configuration
 for_window [class="zoom"] floating enable
+
 

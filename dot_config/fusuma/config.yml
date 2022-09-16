@@ -1,0 +1,18 @@
+swipe:
+  3:
+    left:
+     command: exec i3 workspace next
+    right:
+      command: exec i3 workspace prev
+    up:
+      command: exec i3 fullscreen toggle
+    down:
+      command: exec i3 floating toggle
+
+threshold:
+  swipe: 0.4
+  pinch: 0.4
+
+interval:
+  swipe: 0.8
+  pinch: 0.1

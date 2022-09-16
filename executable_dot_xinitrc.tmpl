@@ -10,6 +10,10 @@ ckb-next -b &
 /usr/bin/dunst &
 xrdb /home/xander/.Xresources
 
+
+{{ if (eq .chezmoi.hostname "laptop-arch") }}
+xinput --set-prop 11 330 50
+{{ end }}
 xset s 3600
 xset dpms 0 0 3600
 xset m 0

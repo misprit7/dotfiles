@@ -105,6 +105,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:python3_host_prog = '/usr/bin/python3'
 " Plug 'sirver/ultisnips'
 
+let g:coc_global_extensions = ['coc-explorer', 'coc-clangd']
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'ctrlpvim/ctrlp.vim'

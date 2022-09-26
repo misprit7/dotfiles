@@ -9,7 +9,7 @@ set $wm_setting_key_right            l
 
 set $wm_setting_app_terminal         kitty
 set $wm_setting_app_browser          firefox
-set $wm_setting_app_launcher         ~/.config/rofi/bin/launcher_text
+set $wm_setting_app_launcher         rofi
 set $wm_setting_app_compositor       picom
 set $wm_setting_app_screenshot       flameshot gui
 
@@ -26,7 +26,7 @@ bindsym $mod+Return exec $wm_setting_app_terminal
 bindsym $mod+$smod+Return exec $wm_setting_app_browser
 
 # Start a program launcher
-bindsym $mod+d exec $wm_setting_app_launcher
+bindsym $mod+d exec sleep 0.1 && $wm_setting_app_launcher -show run
 
 # Start a program launcher
 bindsym $mod+$smod+s exec $wm_setting_app_screenshot
@@ -216,5 +216,7 @@ bindsym $mod+$smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
  
 # Misc. specific configuration
 for_window [class="zoom"] floating enable
+
+focus_wrapping no
 
 

@@ -172,5 +172,6 @@ map <Leader>s :b #<cr>
 nmap <Leader>e <Cmd>CocCommand explorer<CR>
 nmap <Leader>b <Cmd>CocCommand explorer --sources=buffer+<CR>
 
-
+map gy "+y
+map gp "+p
 

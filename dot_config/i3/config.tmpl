@@ -141,7 +141,7 @@ client.background       #F8F8F2
 bar {
     font pango:DejaVu Sans Mono, Font Awesome 5 Free 12
     position top
-    status_command /bin/i3status-rs ~/.config/i3status-rust/config.toml
+    status_command i3status-rs ~/.config/i3status-rust/config.toml
 	output $wm_top_left
 	output $wm_top_right
     colors {
@@ -160,7 +160,7 @@ bar {
 bar {
     font pango:DejaVu Sans Mono, Font Awesome 5 Free 12
     position bottom
-    status_command /bin/i3status-rs ~/.config/i3status-rust/config.toml
+    status_command i3status-rs ~/.config/i3status-rust/config.toml
 {{ if (eq .chezmoi.hostname "desktop-arch") }}
 	output $wm_bottom_right
 	output $wm_bottom_left

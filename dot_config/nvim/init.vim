@@ -105,6 +105,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:python3_host_prog = '/usr/bin/python3'
 " Plug 'sirver/ultisnips'
 
+let g:coc_global_extensions = ['coc-explorer', 'coc-clangd']
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'ctrlpvim/ctrlp.vim'
@@ -171,5 +172,27 @@ map <Leader>s :b #<cr>
 nmap <Leader>e <Cmd>CocCommand explorer<CR>
 nmap <Leader>b <Cmd>CocCommand explorer --sources=buffer+<CR>
 
+" Clipboard
+map gy "+y
+map gp "+p
+
+" Filename
+nmap <C-n> 1<C-g>
+
+" Search
+nmap <C-f> /
+imap <C-f> <Esc>/
+
+" Visual mode with remapped CTRL-V
+nnoremap B <C-v>
+
+" End of word defaults
+nnoremap e E
+nnoremap w W
+nnoremap b B
+
+" End/beginning of line
+nnoremap E $
+nnoremap W ^
 
 

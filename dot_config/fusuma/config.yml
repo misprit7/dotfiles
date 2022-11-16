@@ -7,7 +7,7 @@ swipe:
     up:
       command: exec i3 fullscreen toggle
     down:
-      command: exec i3 floating toggle
+      command: exec i3 fullscreen toggle
 
 threshold:
   swipe: 0.4

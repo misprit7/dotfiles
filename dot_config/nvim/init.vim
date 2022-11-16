@@ -195,3 +195,4 @@ nnoremap b B
 nnoremap E $
 nnoremap W ^
 
+

@@ -1,7 +1,9 @@
 # xrandr --output DisplayPort-0 --primary --mode 1920x1080 --pos 1920x1080 --rotate normal --output DisplayPort-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output DisplayPort-2 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-A-0 --mode 1920x1080 --pos 0x1080 --rotate normal
 exec ~/.fehbg &
-picom -f &
 numlockx &
+{{ if (eq .chezmoi.hostname "laptop-arch") }}
+fusuma &
+{{ end }}
 
 {{ if (eq .chezmoi.hostname "desktop-arch") }}
 ckb-next -b &
@@ -12,7 +14,7 @@ xrdb /home/xander/.Xresources
 
 
 {{ if (eq .chezmoi.hostname "laptop-arch") }}
-xinput --set-prop 11 330 50
+xinput --set-prop "MSFT0001:02 06CB:7F8F Touchpad" "Device Accel Profile" 0
 {{ end }}
 xset s 3600
 xset dpms 0 0 3600

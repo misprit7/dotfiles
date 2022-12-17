@@ -75,6 +75,7 @@ eval "$(dircolors ~/.dircolors)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(pyenv init -)"
 {{ end }}
+eval $(opam env)
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 

@@ -51,28 +51,28 @@ set $ws9  "9"
 set $ws10 "10"
 
 # Switch to workspace n
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+q workspace $ws1
+bindsym $mod+w workspace $ws2
+bindsym $mod+e workspace $ws3
+bindsym $mod+r workspace $ws4
+bindsym $mod+t workspace $ws5
+bindsym $mod+y workspace $ws6
+bindsym $mod+u workspace $ws7
+bindsym $mod+i workspace $ws8
+bindsym $mod+o workspace $ws9
+bindsym $mod+p workspace $ws10
 
 # Move focused container to workspace n
-bindsym $mod+$smod+1 move container to workspace $ws1
-bindsym $mod+$smod+2 move container to workspace $ws2
-bindsym $mod+$smod+3 move container to workspace $ws3
-bindsym $mod+$smod+4 move container to workspace $ws4
-bindsym $mod+$smod+5 move container to workspace $ws5
-bindsym $mod+$smod+6 move container to workspace $ws6
-bindsym $mod+$smod+7 move container to workspace $ws7
-bindsym $mod+$smod+8 move container to workspace $ws8
-bindsym $mod+$smod+9 move container to workspace $ws9
-bindsym $mod+$smod+0 move container to workspace $ws10
+bindsym $mod+$smod+q move container to workspace $ws1
+bindsym $mod+$smod+w move container to workspace $ws2
+bindsym $mod+$smod+e move container to workspace $ws3
+bindsym $mod+$smod+r move container to workspace $ws4
+bindsym $mod+$smod+t move container to workspace $ws5
+bindsym $mod+$smod+y move container to workspace $ws6
+bindsym $mod+$smod+u move container to workspace $ws7
+bindsym $mod+$smod+i move container to workspace $ws8
+bindsym $mod+$smod+o move container to workspace $ws9
+bindsym $mod+$smod+p move container to workspace $ws10
 
 ### Window sizes and positions ###
 # Cange focus
@@ -112,7 +112,7 @@ mode"resize" {
 	bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+c mode "resize"
 
 ### Gaps ###
 {{ if (eq .chezmoi.hostname "desktop-arch") }}
@@ -194,26 +194,22 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+$smod+f floating toggle
 
 # Kill the focused window
-bindsym $mod+$smod+q kill
+bindsym $mod+$smod+c kill
 
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+$smod+r restart
+bindsym $mod+$smod+z restart
 
-bindsym $mod+c split horizontal
-bindsym $mod+v split vertical
+bindsym $mod+n focus parent
+bindsym $mod+b focus child
 
-bindsym $mod+p focus parent
-bindsym $mod+q focus child
-
-bindsym $mod+s layout stacking
 bindsym $mod+m layout toggle all
-bindsym $mod+a layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+s layout toggle split
 
-bindsym $mod+t focus mode_toggle
+# Maybe alt tab later?
+# bindsym $mod+t focus mode_toggle
 
 # Exit i3 (logs you out of your X session)
-bindsym $mod+$smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+$smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
  
 # Misc. specific configuration
 for_window [class="zoom"] floating enable

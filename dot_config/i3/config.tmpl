@@ -114,7 +114,7 @@ mode"resize" {
 	bindsym $mod+r mode "default"
 }
 
-bindsym $mod+c mode "resize"
+bindsym $mod+z mode "resize"
 
 ### Gaps ###
 {{ if (eq .chezmoi.hostname "desktop-arch") }}
@@ -200,6 +200,9 @@ bindsym $mod+$smod+c kill
 
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+$smod+z restart
+
+bindsym $mod+c split horizontal
+bindsym $mod+v split vertical
 
 bindsym $mod+n focus parent
 bindsym $mod+b focus child

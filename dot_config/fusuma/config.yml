@@ -8,6 +8,11 @@ swipe:
       command: exec i3 fullscreen toggle
     down:
       command: exec i3 fullscreen toggle
+  4: 
+    right:
+      command: 'xdotool key alt+Left'
+    left:
+      command: 'xdotool key alt+Right'
 
 threshold:
   swipe: 0.4

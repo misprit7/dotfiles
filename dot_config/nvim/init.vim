@@ -103,7 +103,7 @@ let g:UltiSnipsExpandTrigger = '<insert>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:python3_host_prog = '/usr/bin/python3'
-" Plug 'sirver/ultisnips'
+Plug 'sirver/ultisnips'
 
 let g:coc_global_extensions = ['coc-explorer', 'coc-clangd']
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

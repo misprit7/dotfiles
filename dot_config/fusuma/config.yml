@@ -5,14 +5,11 @@ swipe:
     right:
       command: exec i3 workspace prev
     up:
-      command: exec i3 fullscreen toggle
-    down:
-      command: exec i3 fullscreen toggle
-  4: 
-    right:
       command: 'xdotool key alt+Left'
-    left:
+      # command: exec i3 fullscreen toggle
+    down:
       command: 'xdotool key alt+Right'
+      # command: exec i3 fullscreen toggle
 
 threshold:
   swipe: 0.4

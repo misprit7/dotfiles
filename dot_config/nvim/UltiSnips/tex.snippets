@@ -13,7 +13,7 @@ endglobal
 snippet template "Basic template" b
 \documentclass[letterpaper, reqno,11pt]{article}
 \usepackage[margin=1.0in]{geometry}
-\usepackage{color,latexsym,amsmath,amssymb,graphicx, float}
+\usepackage{color,latexsym,amsmath,amssymb,graphicx,float,listings,tikz}
 \usepackage{hyperref}
 
 \hypersetup{
@@ -106,7 +106,7 @@ endsnippet
 snippet mk "Math" wA
 $${1}$`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ';', ':', '!', ')', ']']:
-	snip.rv = ' '
+	snip.rv = ''
 else:
 	snip.rv = ''
 `$2
@@ -552,22 +552,22 @@ endsnippet
 
 context "math()"
 snippet OO "emptyset" iA
-\O
+\emptyset
 endsnippet
 
 context "math()"
 snippet RR "real" iA
-\R
+\mathbb{R}
 endsnippet
 
 context "math()"
 snippet QQ "Q" iA
-\Q
+\mathbb{Q}
 endsnippet
 
 context "math()"
 snippet ZZ "Z" iA
-\Z
+\mathbb{Z}
 endsnippet
 
 snippet <! "normal" iA
@@ -645,7 +645,7 @@ endsnippet
 
 
 snippet qs "Question" bA
-{\noindent\bf Question $1.} $0
+{\medskip\noindent\bf Question $1.} $0
 endsnippet
-
+ 
 # vim:ft=snippets

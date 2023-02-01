@@ -9,7 +9,7 @@
 skip_file = "~*|.~*|*.tmp|*.swp"
 skip_file = "*.fdb_latexmk|*.log|*.aux|*.fls|*.out|*.synctex.gz|*.synctex"
 # monitor_interval = "300"
-skip_dir = "backups|onenote|art/music/recordings"
+skip_dir = "backups|onenote|art/music/recordings|art/pictures/drone"
 # log_dir = "/var/log/onedrive/"
 # drive_id = ""
 # upload_only = "false"

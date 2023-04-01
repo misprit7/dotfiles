@@ -5,7 +5,8 @@ fusuma &
 {{ end }}
 
 {{ if (eq .chezmoi.hostname "desktop-arch") }}
-ckb-next -b &
+# ckb-next -b &
+pasystray &
 {{ end }}
 
 /usr/bin/dunst &

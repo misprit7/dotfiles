@@ -91,7 +91,6 @@ Plug 'vim-airline/vim-airline-themes'
 let g:polyglot_disabled = ['lilypond']
 Plug 'sheerun/vim-polyglot'
 
-
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
@@ -108,10 +107,13 @@ Plug 'sirver/ultisnips'
 let g:coc_global_extensions = ['coc-explorer', 'coc-clangd']
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'ctrlpvim/ctrlp.vim'
-
+let g:vimspector_enable_mappings = 'HUMAN'
+Plug 'puremourning/vimspector'
 
 call plug#end()
+
+" nmap <Leader>p <Plug>VimspectorToggleBreakpoint
+" nmap <Leader>o <Plug>VimspectorContinue
 
 " color onedark
 colorscheme dracula
@@ -162,15 +164,18 @@ map <Leader>k <C-W>k
 map <Leader>h <C-W>h
 map <Leader>l <C-W>l
 
-map <Leader>n :bn<cr>
-map <Leader>p :bp<cr>
-" map <Leader>d :bd<cr>  
+map <Leader>f :bn<cr>
+map <Leader>s :bp<cr>
 map <Leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
-map <Leader>s :b #<cr>  
+
+map <Leader>> <C-w>>
+map <Leader>< <C-w><
+map <Leader>+ <C-w>+
+map <Leader>- <C-w>-
 
 " Explorer
 nmap <Leader>e <Cmd>CocCommand explorer<CR>
-nmap <Leader>b <Cmd>CocCommand explorer --sources=buffer+<CR>
+nmap <Leader>w <Cmd>CocCommand explorer --sources=buffer+<CR>
 
 " Clipboard
 map gy "+y

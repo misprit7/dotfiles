@@ -52,6 +52,10 @@ set ignorecase
 " Include only uppercase words with uppercase search term
 set smartcase
 
+" Set folds to default indent, but open by default
+set foldmethod=indent
+set nofoldenable
+
 " Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
 set viminfo='100,<9999,s100
 
@@ -82,6 +86,11 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
+" Plug 'github/copilot.vim'
+
+" imap <silent><script><expr> <C-S> copilot#Accept("\<CR>")
+" let g:copilot_no_tab_map = v:true
+
 " let g:onedark_hide_endofbuffer=1
 " Plug 'joshdick/onedark.vim', { 'as': 'onedark' }
 Plug 'dracula/vim', {'as':'dracula'}
@@ -94,6 +103,7 @@ Plug 'sheerun/vim-polyglot'
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
+let g:vimtex_compiler_engine='lualatex'
 " set conceallevel=1
 " let g:tex_conceal='abdmg'
 Plug 'lervag/vimtex'

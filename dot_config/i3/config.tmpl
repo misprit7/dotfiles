@@ -1,7 +1,7 @@
 ### Settings ###
 set $mod                             Mod1
 set $smod                            Shift
-set $wm_setting_font                 pango:Source Sans Pro, Semibold 11
+set $wm_setting_font                 pango:Source Sans Pro, Semibold 12
 set $wm_setting_key_left             h
 set $wm_setting_key_down             j
 set $wm_setting_key_up               k
@@ -13,10 +13,10 @@ set $wm_setting_app_launcher         rofi
 set $wm_setting_app_compositor       picom
 set $wm_setting_app_screenshot       flameshot gui
 
-set $wm_top_right					 DisplayPort-1
-set $wm_top_left					 DisplayPort-2
-set $wm_bottom_right				 DisplayPort-0
-set $wm_bottom_left					 HDMI-A-0
+set $wm_top						 DisplayPort-0
+set $wm_right						 DisplayPort-1
+set $wm_left						 DisplayPort-2
+set $wm_middle						 HDMI-A-0
 
 set $wm_status                       /home/xander/.cargo/bin/i3status-rs
 
@@ -146,8 +146,9 @@ bar {
     font pango:DejaVu Sans Mono, Font Awesome 5 Free 12
     position top
     status_command $wm_status ~/.config/i3status-rust/config.toml
-	output $wm_top_left
-	output $wm_top_right
+{{ if (eq .chezmoi.hostname "desktop-arch") }}
+	output $wm_top
+{{ end }}
     colors {
 		background #282A36
 		statusline #F8F8F2
@@ -166,9 +167,11 @@ bar {
     position bottom
     status_command $wm_status ~/.config/i3status-rust/config.toml
 {{ if (eq .chezmoi.hostname "desktop-arch") }}
-	output $wm_bottom_right
-	output $wm_bottom_left
+	output $wm_middle
+	output $wm_left
+	output $wm_right
 	workspace_min_width 40
+	tray_output primary
 {{ end }}
 	bindsym button1 nop
     colors {

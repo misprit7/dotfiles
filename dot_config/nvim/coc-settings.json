@@ -4,6 +4,12 @@
       "command": "opam",
       "args": ["config", "exec", "--", "ocamllsp"],
       "filetypes": ["ocaml", "reason"]
-    }
-  }
+    },
+    "csharp-ls": {
+        "command": "csharp-ls",
+        "filetypes": ["cs"],
+        "rootPatterns": ["*.csproj", ".vim/", ".git/", ".hg/"]
+      }
+  },
+  "snippets.ultisnips.pythonPrompt": false
 }

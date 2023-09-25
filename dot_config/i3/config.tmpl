@@ -142,13 +142,12 @@ client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 client.background       #F8F8F2
 
 ### i3bar ###
+{{ if (eq .chezmoi.hostname "desktop-arch") }}
 bar {
     font pango:DejaVu Sans Mono, Font Awesome 5 Free 12
     position top
     status_command $wm_status ~/.config/i3status-rust/config.toml
-{{ if (eq .chezmoi.hostname "desktop-arch") }}
 	output $wm_top
-{{ end }}
     colors {
 		background #282A36
 		statusline #F8F8F2
@@ -161,6 +160,7 @@ bar {
 		binding_mode       #FF5555 #FF5555 #F8F8F2
     }
 }
+{{ end }}
 
 bar {
     font pango:DejaVu Sans Mono, Font Awesome 5 Free 12

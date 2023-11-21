@@ -202,9 +202,9 @@ imap <C-f> <Esc>/
 nnoremap B <C-v>
 
 " End of word defaults
-nnoremap e E
-nnoremap w W
-nnoremap b B
+" nnoremap e E
+" nnoremap w W
+" nnoremap b B
 
 " End/beginning of line
 nnoremap E $

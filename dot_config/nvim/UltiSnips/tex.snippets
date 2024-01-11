@@ -94,9 +94,9 @@ snippet => "implies" Ai
 \implies
 endsnippet
 
-snippet =< "implied by" Ai
-\impliedby
-endsnippet
+# snippet =< "implied by" Ai
+# \impliedby
+# endsnippet
 
 context "math()"
 snippet iff "iff" Ai
@@ -197,9 +197,9 @@ snip.rv = subprocess.check_output(['wolframscript', '-code', code])
 `
 endsnippet
 
-snippet == "equals" iA
-&= $1 \\\\
-endsnippet
+# snippet == "equals" iA
+# &= $1 \\\\
+# endsnippet
 
 snippet != "equals" iA
 \neq 
@@ -228,6 +228,10 @@ snippet () "left( right)" iA
 \left( ${1:${VISUAL}} \right) $0
 endsnippet
 
+context "math()"
+snippet <> "langle rangle" iA
+\langle ${1:${VISUAL}} \rangle $0
+endsnippet
 
 context "math()"
 snippet || "left( right)" iA
@@ -573,11 +577,6 @@ endsnippet
 snippet <! "normal" iA
 \triangleleft 
 endsnippet
-
-snippet <> "hokje" iA
-\diamond 
-endsnippet
-
 
 context "math()"
 snippet '(?<!i)sts' "text subscript" irA

@@ -23,6 +23,14 @@ filecolor=magenta,
 urlcolor=cyan,
 }
 
+\lstset{
+basicstyle=\ttfamily,
+columns=fullflexible,
+frame=single,
+breaklines=true,
+postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
 \graphicspath{ {images/} }
 
 \begin{document}
@@ -611,11 +619,11 @@ snippet cvec "column vector" iA
 \begin{pmatrix} $1 \\\\ $2 \\\\ $3 \end{pmatrix}
 endsnippet
 
-priority 10
-context "math()"
-snippet "bar" "bar" riA
-\overline{$1}$0
-endsnippet
+# priority 10
+# context "math()"
+# snippet "bar" "bar" riA
+# \overline{$1}$0
+# endsnippet
 
 priority 100
 context "math()"

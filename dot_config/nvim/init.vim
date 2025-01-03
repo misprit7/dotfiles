@@ -206,6 +206,9 @@ nnoremap B <C-v>
 " nnoremap w W
 " nnoremap b B
 
+" Makes * not automatically go to the next result
+nnoremap * *``
+
 " End/beginning of line
 nnoremap E $
 nnoremap W ^

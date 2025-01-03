@@ -1,6 +1,7 @@
 #!/bin/sh
 {{ if (eq .chezmoi.hostname "desktop-arch") }}
-feh --no-fehbg '/home/xander/Pictures/pang-yuhao-wCi28eq8TF4-unsplash.jpg' --bg-fill
+# feh --no-fehbg '/home/xander/Pictures/pang-yuhao-wCi28eq8TF4-unsplash.jpg' --bg-fill
+feh --no-fehbg '/home/xander/Pictures/spiderman.jpg' --bg-fill
 {{ else if (eq .chezmoi.hostname "laptop-arch") }}
 feh --no-fehbg --bg-fill '/home/xander/OneDrive/art/pictures/misc/skflh2nre0u51.jpg'
 {{ else if (eq .chezmoi.hostname "DUS-XANDER") }}

@@ -40,6 +40,10 @@ exec_always --no-startup-id "nm-applet --indicator &"
 
 # exec_always --no-startup-id "/home/xander/.xinitrc"
 
+{{ if (eq .chezmoi.hostname "desktop-arch") }}
+exec --no-startup-id xrandr --output DisplayPort-0 --primary --mode 3840x2160 --pos 0x0 --rotate normal --output DisplayPort-1 --mode 3840x2160 --pos 3840x0 --rotate normal --output DisplayPort-2 --off --output HDMI-A-0 --off
+{{ end }}
+
 ### Workspaces ###
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -142,37 +146,10 @@ client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 client.background       #F8F8F2
 
 ### i3bar ###
-{{ if (eq .chezmoi.hostname "desktop-arch") }}
 bar {
-    font pango:DejaVu Sans Mono, Font Awesome 5 Free 12
-    position top
-    status_command $wm_status ~/.config/i3status-rust/config.toml
-	output $wm_top
-    colors {
-		background #282A36
-		statusline #F8F8F2
-		separator  #44475A
-
-		focused_workspace  #bd93f9 #bd93f9 #F8F8F2
-		active_workspace   #282A36 #44475A #F8F8F2
-		inactive_workspace #282A36 #282A36 #BFBFBF
-		urgent_workspace   #FF5555 #FF5555 #F8F8F2
-		binding_mode       #FF5555 #FF5555 #F8F8F2
-    }
-}
-{{ end }}
-
-bar {
-    font pango:DejaVu Sans Mono, Font Awesome 5 Free 12
+    font pango:DejaVu Sans Mono, Font Awesome 5 Free 20
     position bottom
     status_command $wm_status ~/.config/i3status-rust/config.toml
-{{ if (eq .chezmoi.hostname "desktop-arch") }}
-	output $wm_middle
-	output $wm_left
-	output $wm_right
-	workspace_min_width 40
-	tray_output primary
-{{ end }}
 	bindsym button1 nop
     colors {
 		background #282A36
@@ -201,7 +178,7 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+$smod+f floating toggle
 
 # Kill the focused window
-bindsym $mod+$smod+c kill
+bindsym $mod+$smod+c --release kill
 
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+$smod+z restart
@@ -223,6 +200,7 @@ bindsym $mod+s layout toggle split
  
 # Misc. specific configuration
 for_window [class="zoom"] floating enable
+
 
 focus_wrapping no
 

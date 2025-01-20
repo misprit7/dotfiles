@@ -59,8 +59,6 @@ set nofoldenable
 " Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
 set viminfo='100,<9999,s100
 
-let g:airline#extensions#tabline#enabled = 1
-
 " Enable copying out of vim
 autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
@@ -94,8 +92,18 @@ Plug 'tpope/vim-commentary'
 " let g:onedark_hide_endofbuffer=1
 " Plug 'joshdick/onedark.vim', { 'as': 'onedark' }
 Plug 'dracula/vim', {'as':'dracula'}
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+
+" let g:airline#extensions#tabline#enabled = 1
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 
 let g:polyglot_disabled = ['lilypond']
 Plug 'sheerun/vim-polyglot'
@@ -121,6 +129,63 @@ let g:vimspector_enable_mappings = 'HUMAN'
 Plug 'puremourning/vimspector'
 
 call plug#end()
+
+lua << EOF
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    always_show_tabline = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 100,
+      tabline = 100,
+      winbar = 100,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {
+        lualine_a = {
+          {
+            'buffers',
+            mode = 4,
+          },
+        },
+        lualine_c = {},
+        lualine_b = { 'lsp_progress', },
+        lualine_x = {},
+        lualine_y = { 'grapple', },
+        lualine_z = { 'tabs' }
+      },
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+}
+EOF
+
 
 " nmap <Leader>p <Plug>VimspectorToggleBreakpoint
 " nmap <Leader>o <Plug>VimspectorContinue
@@ -159,6 +224,10 @@ runtime coc.vim
 " Scrolling
 nnoremap <S-j> <C-e>
 nnoremap <S-k> <C-y>
+
+" Line movements
+nnoremap <S-H> ^
+nnoremap <S-L> $
 
 " Switch tab
 nnoremap <S-h> gT

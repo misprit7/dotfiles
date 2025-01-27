@@ -104,6 +104,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+nnoremap gb <cmd>Telescope buffers<cr>
+nnoremap gf <cmd>Telescope find_files<cr>
+nnoremap ga <cmd>Telescope live_grep<cr>
 
 let g:polyglot_disabled = ['lilypond']
 Plug 'sheerun/vim-polyglot'
@@ -154,7 +157,7 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
+    lualine_c = {{'filename', path=1}},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}

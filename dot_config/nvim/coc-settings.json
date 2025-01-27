@@ -12,4 +12,8 @@
       }
   },
   "snippets.ultisnips.pythonPrompt": false
+  "explorer.keyMappings.global": {
+    "o": ["wait", "expanded?", "collapse", "expand"],
+    "<cr>": ["wait", "expanded?", "collapse", "expand"]
+  }
 }

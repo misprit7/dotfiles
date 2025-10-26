@@ -70,6 +70,9 @@ set ignorecase
 " Mouse
 set mouse=a
 
+" Changes length before vim assumes binding is finished
+set timeoutlen=300
+
 
 " Workaround to prevent vim from breaking background color in kitty
 let &t_ut=''
@@ -104,9 +107,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
-nnoremap gb <cmd>Telescope buffers<cr>
-nnoremap gf <cmd>Telescope find_files<cr>
-nnoremap ga <cmd>Telescope live_grep<cr>
 
 let g:polyglot_disabled = ['lilypond']
 Plug 'sheerun/vim-polyglot'
@@ -245,6 +245,10 @@ map <Leader>j <C-W>j
 map <Leader>k <C-W>k
 map <Leader>h <C-W>h
 map <Leader>l <C-W>l
+map <Leader>wj <C-W>j
+map <Leader>wk <C-W>k
+map <Leader>wh <C-W>h
+map <Leader>wl <C-W>l
 
 map <Leader>f :bn<cr>
 map <Leader>s :bp<cr>
@@ -257,7 +261,7 @@ map <Leader>- <C-w>-
 
 " Explorer
 nmap <Leader>e <Cmd>CocCommand explorer<CR>
-nmap <Leader>w <Cmd>CocCommand explorer --sources=buffer+<CR>
+" nmap <Leader>w <Cmd>CocCommand explorer --sources=buffer+<CR>
 
 " Clipboard
 map gy "+y
@@ -284,5 +288,12 @@ nnoremap * *``
 " End/beginning of line
 nnoremap E $
 nnoremap W ^
+
+nnoremap gb <cmd>Telescope buffers<cr>
+nnoremap <Leader>bb <cmd>Telescope buffers<cr>
+nnoremap gf <cmd>Telescope find_files<cr>
+nnoremap <Leader>ff <cmd>Telescope find_files<cr>
+nnoremap ga <cmd>Telescope live_grep<cr>
+nnoremap <Leader>sd <cmd>Telescope live_grep<cr>
 
 

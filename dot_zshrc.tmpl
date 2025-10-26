@@ -52,6 +52,13 @@ export PATH="$PATH:$HOME/.local/bin"
 # Add python script path
 export PATH="$HOME/.local/bin:$PATH"
 
+# Cargo
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# Dotnet
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
+
 bindkey '^H' backward-kill-word
 bindkey '5~' kill-word
 

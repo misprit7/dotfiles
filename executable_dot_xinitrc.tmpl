@@ -14,12 +14,6 @@ xrdb /home/xander/.Xresources
 
 clipster -d &
 
-{{ if (eq .chezmoi.hostname "laptop-arch") }}
-pkill syndaemon
-syndaemon -K -i 0.25 -R -d
-xinput set-prop 11 343 -80 -80
-xinput set-prop 11 "Synaptics Coasting Speed" 10 50
-{{ end }}
 xset s 3600
 xset dpms 0 0 3600
 xset m 0
@@ -30,3 +24,12 @@ xset r rate 250 30
 xbindkeys
 setxkbmap -option 'ctrl:nocaps'
 xcape -e 'Control_L=Escape'
+
+{{ if (eq .chezmoi.hostname "laptop-arch") }}
+pkill syndaemon
+syndaemon -K -i 0.25 -R -d
+xinput set-prop 11 343 -80 -80
+xinput set-prop 11 "Synaptics Coasting Speed" 10 50
+
+exec i3
+{{ end }}

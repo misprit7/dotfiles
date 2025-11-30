@@ -68,11 +68,11 @@ hash -d sch=$HOME/OneDrive/school/year3/term2
 
 eval "$(dircolors ~/.dircolors)"
 
-if command -v pyenv &> /dev/null; then
-  # Setup pyenv
-  eval "$(pyenv virtualenv-init -)"
-  eval "$(pyenv init -)"
-fi
+# if command -v pyenv &> /dev/null; then
+#   # Setup pyenv
+#   eval "$(pyenv virtualenv-init -)"
+#   eval "$(pyenv init -)"
+# fi
 
 if command -v opam &> /dev/null; then
   # Setup ocaml
@@ -80,4 +80,6 @@ if command -v opam &> /dev/null; then
 fi
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+. "$HOME/.local/share/../bin/env"
 

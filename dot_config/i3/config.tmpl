@@ -40,9 +40,7 @@ exec_always --no-startup-id "nm-applet --indicator &"
 
 # exec_always --no-startup-id "/home/xander/.xinitrc"
 
-{{ if (eq .chezmoi.hostname "desktop-arch") }}
-exec --no-startup-id xrandr --output DisplayPort-0 --primary --mode 3840x2160 --pos 0x0 --rotate normal --output DisplayPort-1 --mode 3840x2160 --pos 3840x0 --rotate normal --output DisplayPort-2 --off --output HDMI-A-0 --off
-{{ end }}
+
 
 ### Workspaces ###
 # Define names for default workspaces for which we configure key bindings later on.
@@ -70,6 +68,17 @@ bindsym $mod+i workspace $ws8
 bindsym $mod+o workspace $ws9
 bindsym $mod+p workspace $ws10
 
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
 # Move focused container to workspace n
 bindsym $mod+$smod+q move container to workspace $ws1
 bindsym $mod+$smod+w move container to workspace $ws2
@@ -81,6 +90,17 @@ bindsym $mod+$smod+u move container to workspace $ws7
 bindsym $mod+$smod+i move container to workspace $ws8
 bindsym $mod+$smod+o move container to workspace $ws9
 bindsym $mod+$smod+p move container to workspace $ws10
+
+bindsym $mod+$smod+1 move container to workspace $ws1
+bindsym $mod+$smod+2 move container to workspace $ws2
+bindsym $mod+$smod+3 move container to workspace $ws3
+bindsym $mod+$smod+4 move container to workspace $ws4
+bindsym $mod+$smod+5 move container to workspace $ws5
+bindsym $mod+$smod+6 move container to workspace $ws6
+bindsym $mod+$smod+7 move container to workspace $ws7
+bindsym $mod+$smod+8 move container to workspace $ws8
+bindsym $mod+$smod+9 move container to workspace $ws9
+bindsym $mod+$smod+0 move container to workspace $ws10
 
 ### Window sizes and positions ###
 # Cange focus
@@ -123,11 +143,7 @@ mode"resize" {
 bindsym $mod+z mode "resize"
 
 ### Gaps ###
-{{ if (eq .chezmoi.hostname "desktop-arch") }}
-gaps horizontal 0
-gaps vertical   0
-gaps inner		0
-{{ end }}
+
 # smart_gaps on
 
 ### Borders ###

@@ -36,9 +36,29 @@ alias s=sudo
 alias vim=nvim
 alias c=chezmoi
 alias q=exit
-alias v=nvim
 alias sv=sudoedit
 alias z=zathura
+# alias v=nvim
+
+v() {
+  if [ $# -eq 0 ]; then
+    command nvim; return
+  fi
+
+  for f in "$@"; do
+    case "$f" in -*|+*) continue ;; esac
+
+    if chezmoi source-path "$f" >/dev/null 2>&1; then
+      printf 'ChezMoi-managed file: %s. Open anyway? [Y/n] ' "$f"
+      read -k ans
+      echo
+      [[ "$ans" =~ ^[Nn]$ ]] && return 1
+      break
+    fi
+  done
+
+  command nvim "$@"
+}
 
 # Use vi mode
 bindkey -v

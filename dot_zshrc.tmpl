@@ -19,7 +19,8 @@ plugins=(gitfast zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-unsetopt share_history
+setopt share_history
+# unsetopt share_history
 
 # zsh parameter completion for the dotnet CLI
 _dotnet_zsh_complete()

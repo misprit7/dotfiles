@@ -100,7 +100,45 @@ if command -v opam &> /dev/null; then
   eval $(opam env)
 fi
 
+# Fixes cursors shape on ssh
+function _cursor_shape() {
+  local seq="$1"
+  if [[ -n "$TMUX" ]]; then
+    print -n -- "\ePtmux;\e${seq}\e\\"
+  elif [[ "$TERM" == screen* ]]; then
+    print -n -- "\eP${seq}\e\\"
+  else
+    print -n -- "${seq}"
+  fi
+}
+
+function zle-keymap-select {
+  case $KEYMAP in
+    vicmd)      _cursor_shape $'\e[2 q' ;;  # block
+    viins|main) _cursor_shape $'\e[6 q' ;;  # bar
+  esac
+}
+function zle-line-init { zle-keymap-select }
+function zle-line-finish { _cursor_shape $'\e[2 q' }  # reset to block
+
+zle -N zle-keymap-select
+zle -N zle-line-init
+zle -N zle-line-finish
+
+autoload -U add-zsh-hook
+
+_auto_venv() {
+  if [[ -d .venv ]]; then
+    [[ "$VIRTUAL_ENV" != "$PWD/.venv" ]] && source .venv/bin/activate
+  else
+    [[ -n "$VIRTUAL_ENV" ]] && deactivate
+  fi
+}
+
+add-zsh-hook chpwd _auto_venv
+_auto_venv
+
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-. "$HOME/.local/share/../bin/env"
+# . "$HOME/.local/share/../bin/env"
 

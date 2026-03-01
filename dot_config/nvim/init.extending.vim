@@ -77,14 +77,15 @@ set timeoutlen=300
 " Workaround to prevent vim from breaking background color in kitty
 let &t_ut=''
 
+set norelativenumber
 
 
 call plug#begin('~/.config/nvim/plugged')
 
 "Fugitive Vim Github Wrapper
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-sensible'
+"Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
 " Plug 'github/copilot.vim'
@@ -100,16 +101,16 @@ Plug 'dracula/vim', {'as':'dracula'}
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 
-Plug 'nvim-lualine/lualine.nvim'
-Plug 'nvim-tree/nvim-web-devicons'
+"Plug 'nvim-lualine/lualine.nvim'
+"Plug 'nvim-tree/nvim-web-devicons'
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'
+"Plug 'nvim-lua/plenary.nvim'
+"Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 
-let g:polyglot_disabled = ['lilypond']
-Plug 'sheerun/vim-polyglot'
+"let g:polyglot_disabled = ['lilypond']
+"Plug 'sheerun/vim-polyglot'
 
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
@@ -119,75 +120,75 @@ let g:vimtex_compiler_engine='lualatex'
 " let g:tex_conceal='abdmg'
 Plug 'lervag/vimtex'
 
-let g:UltiSnipsExpandTrigger = '<insert>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-let g:python3_host_prog = '/usr/bin/python3'
-Plug 'sirver/ultisnips'
+"let g:UltiSnipsExpandTrigger = '<insert>'
+"let g:UltiSnipsJumpForwardTrigger = '<tab>'
+"let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+"let g:python3_host_prog = '/usr/bin/python3'
+"Plug 'sirver/ultisnips'
 
-let g:coc_global_extensions = ['coc-explorer', 'coc-clangd']
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-let g:vimspector_enable_mappings = 'HUMAN'
-Plug 'puremourning/vimspector'
+"let g:coc_global_extensions = ['coc-explorer', 'coc-clangd']
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"
+"let g:vimspector_enable_mappings = 'HUMAN'
+"Plug 'puremourning/vimspector'
 
 call plug#end()
 
-lua << EOF
-require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'auto',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
-    ignore_focus = {},
-    always_divide_middle = true,
-    always_show_tabline = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 100,
-      tabline = 100,
-      winbar = 100,
-    }
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {{'filename', path=1}},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {
-        lualine_a = {
-          {
-            'buffers',
-            mode = 4,
-          },
-        },
-        lualine_c = {},
-        lualine_b = { 'lsp_progress', },
-        lualine_x = {},
-        lualine_y = { 'grapple', },
-        lualine_z = { 'tabs' }
-      },
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
-}
-EOF
+"lua << EOF
+"require('lualine').setup {
+"  options = {
+"    icons_enabled = true,
+"    theme = 'auto',
+"    component_separators = { left = '', right = ''},
+"    section_separators = { left = '', right = ''},
+"    disabled_filetypes = {
+"      statusline = {},
+"      winbar = {},
+"    },
+"    ignore_focus = {},
+"    always_divide_middle = true,
+"    always_show_tabline = true,
+"    globalstatus = false,
+"    refresh = {
+"      statusline = 100,
+"      tabline = 100,
+"      winbar = 100,
+"    }
+"  },
+"  sections = {
+"    lualine_a = {'mode'},
+"    lualine_b = {'branch', 'diff', 'diagnostics'},
+"    lualine_c = {{'filename', path=1}},
+"    lualine_x = {'encoding', 'fileformat', 'filetype'},
+"    lualine_y = {'progress'},
+"    lualine_z = {'location'}
+"  },
+"  inactive_sections = {
+"    lualine_a = {},
+"    lualine_b = {},
+"    lualine_c = {'filename'},
+"    lualine_x = {'location'},
+"    lualine_y = {},
+"    lualine_z = {}
+"  },
+"  tabline = {
+"        lualine_a = {
+"          {
+"            'buffers',
+"            mode = 4,
+"          },
+"        },
+"        lualine_c = {},
+"        lualine_b = { 'lsp_progress', },
+"        lualine_x = {},
+"        lualine_y = { 'grapple', },
+"        lualine_z = { 'tabs' }
+"      },
+"  winbar = {},
+"  inactive_winbar = {},
+"  extensions = {}
+"}
+"EOF
 
 
 " nmap <Leader>p <Plug>VimspectorToggleBreakpoint
@@ -222,7 +223,7 @@ let @c="/***********************************************************************
 " Leader
 let mapleader = " "
 
-runtime coc.vim
+"runtime coc.vim
 
 " Scrolling
 nnoremap <S-j> <C-e>
@@ -260,7 +261,7 @@ map <Leader>+ <C-w>+
 map <Leader>- <C-w>-
 
 " Explorer
-nmap <Leader>e <Cmd>CocCommand explorer<CR>
+"nmap <Leader>e <Cmd>CocCommand explorer<CR>
 " nmap <Leader>w <Cmd>CocCommand explorer --sources=buffer+<CR>
 
 " Clipboard
@@ -289,11 +290,11 @@ nnoremap * *``
 nnoremap E $
 nnoremap W ^
 
-nnoremap gb <cmd>Telescope buffers<cr>
-nnoremap <Leader>bb <cmd>Telescope buffers<cr>
-nnoremap gf <cmd>Telescope find_files<cr>
-nnoremap <Leader>ff <cmd>Telescope find_files<cr>
-nnoremap ga <cmd>Telescope live_grep<cr>
-nnoremap <Leader>sd <cmd>Telescope live_grep<cr>
+"nnoremap gb <cmd>Telescope buffers<cr>
+"nnoremap <Leader>bb <cmd>Telescope buffers<cr>
+"nnoremap gf <cmd>Telescope find_files<cr>
+"nnoremap <Leader>ff <cmd>Telescope find_files<cr>
+"nnoremap ga <cmd>Telescope live_grep<cr>
+"nnoremap <Leader>sd <cmd>Telescope live_grep<cr>
 
 

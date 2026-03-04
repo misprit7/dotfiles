@@ -40,6 +40,7 @@ alias c=chezmoi
 alias q=exit
 alias sv=sudoedit
 alias z=zathura
+alias claude="claude --dangerously-skip-permissions"
 # alias v=nvim
 
 v() {
@@ -150,4 +151,7 @@ if test -n "$KITTY_INSTALLATION_DIR"; then
     kitty-integration
     unfunction kitty-integration
 fi
+
+export KALSHI_API_KEY_ID="9ff878b8-8c0a-475f-8744-2380d041521c"
+export KALSHI_API_PRIVATE_KEY_FILE="~/.dotfiles/kalshi_dev_api_private_key.pem"
 

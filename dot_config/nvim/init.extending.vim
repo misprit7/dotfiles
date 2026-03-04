@@ -77,7 +77,9 @@ set timeoutlen=300
 " Workaround to prevent vim from breaking background color in kitty
 let &t_ut=''
 
+" Undo shared vim settings
 set norelativenumber
+set clipboard=
 
 
 call plug#begin('~/.config/nvim/plugged')
@@ -296,5 +298,6 @@ nnoremap W ^
 "nnoremap <Leader>ff <cmd>Telescope find_files<cr>
 "nnoremap ga <cmd>Telescope live_grep<cr>
 "nnoremap <Leader>sd <cmd>Telescope live_grep<cr>
+
 
 

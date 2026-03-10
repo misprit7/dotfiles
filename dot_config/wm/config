@@ -40,15 +40,15 @@ focus_wrapping no
 bindsym $mod+Return exec $terminal
 bindsym $mod+$smod+Return exec $browser
 bindsym $mod+d exec $menu
-bindsym $mod+r exec $menu
 
 # Window management
-bindsym $mod+$smod+c kill
+bindsym $mod+$smod+c --release kill
 bindsym $mod+$smod+f floating toggle
 bindsym $mod+f fullscreen toggle
-bindsym $mod+m layout toggle split
-bindsym $mod+c splith
-bindsym $mod+v splitv
+bindsym $mod+m layout toggle all
+bindsym $mod+s layout toggle split
+bindsym $mod+c split horizontal
+bindsym $mod+v split vertical
 
 # Focus (hjkl)
 bindsym $mod+h focus left
@@ -64,7 +64,26 @@ bindsym $mod+$smod+l move right
 
 # Parent/child focus
 bindsym $mod+n focus parent
-bindsym $mod+$smod+n focus child
+bindsym $mod+b focus child
+
+# Resize mode
+mode "resize" {
+	bindsym h resize shrink width 10 px or 10 ppt
+	bindsym j resize grow height 10 px or 10 ppt
+	bindsym k resize shrink height 10 px or 10 ppt
+	bindsym l resize grow width 10 px or 10 ppt
+
+	bindsym $smod+h gaps horizontal minus 5
+	bindsym $smod+j gaps horizontal plus 5
+	bindsym $smod+k gaps vertical minus 5
+	bindsym $smod+l gaps vertical plus 5
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
+}
+
+bindsym $mod+z mode "resize"
 
 # Workspaces
 bindsym $mod+1 workspace number 1

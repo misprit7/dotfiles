@@ -7,16 +7,10 @@ set $browser firefox
 set $menu fuzzel
 
 ### Environment ###
-# These must be set in your shell profile (~/.zprofile) before starting sway:
-#   export LIBVA_DRIVER_NAME=nvidia
-#   export __GLX_VENDOR_LIBRARY_NAME=nvidia
-#   export NVD_BACKEND=direct
-#   export WLR_NO_HARDWARE_CURSORS=1
-#   export GDK_SCALE=1.5
-#   export XCURSOR_SIZE=32
-#   export QT_SCALE_FACTOR=1
+# Nvidia + scaling env vars are in ~/.config/environment.d/sway-nvidia.conf
+# (sourced by systemd for graphical sessions via SDDM)
 
-# Export to systemd/dbus for child processes (portal, xdg-desktop-portal, etc.)
+# Export to systemd/dbus for child processes (portals, etc.)
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 ### Monitors ###

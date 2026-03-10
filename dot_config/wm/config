@@ -1,0 +1,113 @@
+### Variables ###
+set $mod Mod1
+set $smod Shift
+set $terminal kitty
+set $browser firefox
+set $menu fuzzel
+
+### Look and Feel ###
+
+# Gaps
+gaps inner 5
+gaps outer 20
+
+# Borders
+default_border pixel 2
+default_floating_border pixel 2
+
+# Colors (cyan/green active, gray inactive)
+# class                 border  bg      text    indicator child_border
+client.focused          #33ccff #33ccff #ffffff #00ff99   #33ccff
+client.focused_inactive #595959 #595959 #ffffff #595959   #595959
+client.unfocused        #595959 #303030 #888888 #595959   #595959
+client.urgent           #ff5555 #ff5555 #ffffff #ff5555   #ff5555
+
+# Font for title bars (hidden with pixel borders, but needed for i3bar fallback)
+font pango:JetBrainsMono Nerd Font 10
+
+# Floating modifier
+floating_modifier $mod
+
+# Focus follows mouse
+focus_follows_mouse yes
+
+# No focus wrapping
+focus_wrapping no
+
+### Keybindings ###
+
+# Applications
+bindsym $mod+Return exec $terminal
+bindsym $mod+$smod+Return exec $browser
+bindsym $mod+d exec $menu
+bindsym $mod+r exec $menu
+
+# Window management
+bindsym $mod+$smod+c kill
+bindsym $mod+$smod+f floating toggle
+bindsym $mod+f fullscreen toggle
+bindsym $mod+m layout toggle split
+bindsym $mod+c splith
+bindsym $mod+v splitv
+
+# Focus (hjkl)
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Move windows (hjkl)
+bindsym $mod+$smod+h move left
+bindsym $mod+$smod+j move down
+bindsym $mod+$smod+k move up
+bindsym $mod+$smod+l move right
+
+# Parent/child focus
+bindsym $mod+n focus parent
+bindsym $mod+$smod+n focus child
+
+# Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# Move to workspace
+bindsym $mod+$smod+1 move container to workspace number 1
+bindsym $mod+$smod+2 move container to workspace number 2
+bindsym $mod+$smod+3 move container to workspace number 3
+bindsym $mod+$smod+4 move container to workspace number 4
+bindsym $mod+$smod+5 move container to workspace number 5
+bindsym $mod+$smod+6 move container to workspace number 6
+bindsym $mod+$smod+7 move container to workspace number 7
+bindsym $mod+$smod+8 move container to workspace number 8
+bindsym $mod+$smod+9 move container to workspace number 9
+bindsym $mod+$smod+0 move container to workspace number 10
+
+# Lock
+bindsym Control+Mod1+l exec swaylock
+
+# Mouse bindings
+bindsym $mod+button4 workspace prev
+bindsym $mod+button5 workspace next
+
+# Multimedia keys
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1000
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1000
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessUp exec brightnessctl s 10%+
+bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPrev exec playerctl previous
+
+### Window Rules ###
+for_window [class="zoom"] floating enable

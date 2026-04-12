@@ -6,13 +6,36 @@ include ~/.config/wm/config
 # (sourced by systemd for graphical sessions via SDDM)
 
 # Export to systemd/dbus for child processes (portals, etc.)
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec export XDG_CURRENT_DESKTOP=sway && dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
 ### Monitors ###
-# DP-1 center, HDMI-A-1 right, HDMI-A-2 left
+# DP-1 center, HDMI-A-1 right, HDMI-A-2 left (TV)
 output DP-1 pos 0 0 scale 1.5
 output HDMI-A-1 pos 2560 0 scale 1.5
 output HDMI-A-2 pos -2560 0 scale 1.5
+
+### Workspace → Output Assignments ###
+workspace L1 output DP-1
+workspace L2 output DP-1
+workspace L3 output DP-1
+workspace L4 output DP-1
+workspace L5 output DP-1
+workspace L6 output DP-1
+workspace L7 output DP-1
+workspace L8 output DP-1
+workspace L9 output DP-1
+workspace L10 output DP-1
+workspace R1 output HDMI-A-1
+workspace R2 output HDMI-A-1
+workspace R3 output HDMI-A-1
+workspace R4 output HDMI-A-1
+workspace R5 output HDMI-A-1
+workspace R6 output HDMI-A-1
+workspace R7 output HDMI-A-1
+workspace R8 output HDMI-A-1
+workspace R9 output HDMI-A-1
+workspace R10 output HDMI-A-1
+workspace TV1 output HDMI-A-2
 
 ### Wallpaper ###
 output * bg /home/xander/Documents/wallpaper/city-skyline.jpg fill
@@ -39,6 +62,7 @@ input type:touchpad {
 exec waybar &
 exec nm-applet &
 exec pasystray &
+exec systemctl --user start xdg-desktop-portal-wlr xdg-desktop-portal
 
 ### Sway-specific keybindings ###
 
@@ -47,3 +71,6 @@ bindsym $mod+$smod+s exec grim -g "$(slurp)" - | tee ~/Pictures/screenshots/$(da
 
 # Reload sway config
 bindsym $mod+$smod+z reload
+
+# Numlock
+input type:keyboard xkb_numlock enabled

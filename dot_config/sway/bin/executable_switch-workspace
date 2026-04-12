@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Switch to the Nth workspace on the current output.
+# Handles renamed workspaces (e.g. "L2: work" matches N=2).
+set -euo pipefail
+
+n="${1:?Usage: switch-workspace N}"
+
+ws_json=$(swaymsg -t get_workspaces)
+output=$(echo "$ws_json" | jq -r '.[] | select(.focused) | .output')
+
+case "$output" in
+    DP-1)     prefix="L" ;;
+    HDMI-A-1) prefix="R" ;;
+    HDMI-A-2) prefix="TV" ;;
+    *)        exit 1 ;;
+esac
+
+base="${prefix}${n}"
+
+# Find existing workspace that starts with the base name
+match=$(echo "$ws_json" | jq -r --arg b "$base" \
+    '.[] | select(.name == $b or (.name | startswith($b + ":"))) | .name' | head -1)
+
+swaymsg "workspace ${match:-$base}"

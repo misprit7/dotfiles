@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Rename the current workspace. Prompts for text via fuzzel.
+# Result: "L2: custom text" or back to "L2" if input is empty.
+set -euo pipefail
+
+current=$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused) | .name')
+
+# Extract base name (e.g. "L2" from "L2: something")
+base="${current%%:*}"
+
+label=$(echo "" | fuzzel --dmenu --prompt="Rename ${base}: " --width=30 --lines=0) || exit 0
+
+if [[ -z "$label" ]]; then
+    new_name="$base"
+else
+    new_name="${base}: ${label}"
+fi
+
+if [[ "$new_name" != "$current" ]]; then
+    swaymsg "rename workspace \"$current\" to \"$new_name\""
+fi

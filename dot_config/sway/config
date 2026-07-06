@@ -62,7 +62,10 @@ input type:touchpad {
 exec waybar &
 exec nm-applet &
 exec pasystray &
-exec systemctl --user start xdg-desktop-portal-wlr xdg-desktop-portal
+# Bring up the systemd user graphical session. This activates
+# graphical-session.target, which xdg-desktop-portal now hard-requires
+# (Requisite=graphical-session.target); the portals D-Bus-activate on demand.
+exec systemctl --user start sway-session.target
 
 ### Sway-specific keybindings ###
 

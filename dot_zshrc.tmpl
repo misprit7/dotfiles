@@ -20,8 +20,8 @@ plugins=(gitfast zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # setopt share_history
-# unsetopt share_history
-setopt APPEND_HISTORY
+unsetopt share_history
+# setopt APPEND_HISTORY
 
 # zsh parameter completion for the dotnet CLI
 _dotnet_zsh_complete()
@@ -40,6 +40,7 @@ alias c=chezmoi
 alias q=exit
 alias sv=sudoedit
 alias z=zathura
+alias claude="claude --dangerously-skip-permissions"
 # alias v=nvim
 
 v() {
@@ -148,3 +149,13 @@ _auto_venv
 
 # . "$HOME/.local/share/../bin/env"
 
+# Kitty shell integration for SSH session tracking
+if test -n "$KITTY_INSTALLATION_DIR"; then
+    export KITTY_SHELL_INTEGRATION="enabled"
+    autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
+    kitty-integration
+    unfunction kitty-integration
+fi
+
+export KALSHI_API_KEY_ID="9ff878b8-8c0a-475f-8744-2380d041521c"
+export KALSHI_API_PRIVATE_KEY_FILE="$HOME/.dotfiles/secret/kalshi_dev_api_private_key.pem"

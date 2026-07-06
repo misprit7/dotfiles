@@ -1,0 +1,33 @@
+### Shared config ###
+include ~/.config/wm/config
+
+### Autostart ###
+exec_always --no-startup-id picom
+exec --no-startup-id nm-applet --indicator
+
+### i3-specific keybindings ###
+
+# Screenshot
+bindsym $mod+$smod+s exec flameshot gui
+
+# Restart i3 inplace (preserves layout/session)
+bindsym $mod+$smod+z restart
+
+### i3bar ###
+bar {
+    font pango:DejaVu Sans Mono, Font Awesome 5 Free 20
+    position bottom
+    status_command /home/xander/.cargo/bin/i3status-rs ~/.config/i3status-rust/config.toml
+    bindsym button1 nop
+    colors {
+        background #282A36
+        statusline #F8F8F2
+        separator  #44475A
+
+        focused_workspace  #bd93f9 #bd93f9 #F8F8F2
+        active_workspace   #282A36 #44475A #F8F8F2
+        inactive_workspace #282A36 #282A36 #BFBFBF
+        urgent_workspace   #FF5555 #FF5555 #F8F8F2
+        binding_mode       #FF5555 #FF5555 #F8F8F2
+    }
+}

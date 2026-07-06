@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Open the next unused workspace on the current output.
+set -euo pipefail
+
+ws_json=$(swaymsg -t get_workspaces)
+current_output=$(echo "$ws_json" | jq -r '.[] | select(.focused) | .output')
+
+case "$current_output" in
+    DP-1)     prefix="L" ;;
+    HDMI-A-1) prefix="R" ;;
+    HDMI-A-2) prefix="TV" ;;
+    *)        exit 1 ;;
+esac
+
+existing=$(echo "$ws_json" | jq -r '.[].name')
+
+for i in 1 2 3 4 5 6 7 8 9 10; do
+    base="${prefix}${i}"
+    # Check if any existing workspace starts with this base
+    if ! echo "$existing" | grep -qE "^${base}(:|$)"; then
+        swaymsg "workspace $base"
+        exit 0
+    fi
+done

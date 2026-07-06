@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Cycle to the next/prev used workspace on the current output (alphabetical order).
+# Usage: cycle-workspace next|prev
+set -euo pipefail
+
+direction="${1:?Usage: cycle-workspace next|prev}"
+
+ws_json=$(swaymsg -t get_workspaces)
+
+current=$(echo "$ws_json" | jq -r '.[] | select(.focused) | .name')
+current_output=$(echo "$ws_json" | jq -r '.[] | select(.focused) | .output')
+
+mapfile -t used < <(echo "$ws_json" | jq -r --arg out "$current_output" \
+    '[.[] | select(.output == $out) | .name] | sort | .[]')
+
+count=${#used[@]}
+if (( count < 2 )); then
+    exit 0
+fi
+
+idx=-1
+for i in "${!used[@]}"; do
+    if [[ "${used[$i]}" == "$current" ]]; then
+        idx=$i
+        break
+    fi
+done
+
+if [[ "$direction" == "next" ]]; then
+    target_idx=$(( (idx + 1) % count ))
+else
+    target_idx=$(( (idx - 1 + count) % count ))
+fi
+
+swaymsg "workspace ${used[$target_idx]}"

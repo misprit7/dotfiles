@@ -1,0 +1,37 @@
+#!/bin/sh
+# Fan the canonical Firefox prefs out into every profile listed in profiles.ini.
+#
+# Firefox reads user.js only from inside a profile directory, and those
+# directories carry a random prefix (mk6lzzu1.default-release), so they cannot
+# be addressed as fixed chezmoi paths. This reads profiles.ini instead, which
+# means it works on any machine regardless of how many profiles exist or what
+# they are called.
+#
+# The hash makes chezmoi re-run this whenever the prefs change:
+#   sha256: {{ include "dot_config/firefox/user.js" | sha256sum }}
+#
+# No-ops when Firefox has never been launched (no profiles.ini). In that case
+# the prefs land on the next `chezmoi apply` after first launch.
+
+set -eu
+
+SRC="$HOME/.config/firefox/user.js"
+FFDIR="$HOME/.mozilla/firefox"
+
+[ -r "$SRC" ] || exit 0
+[ -f "$FFDIR/profiles.ini" ] || exit 0
+
+grep -E '^Path=' "$FFDIR/profiles.ini" | sed 's/^Path=//' | while IFS= read -r p; do
+    # Paths are relative to $FFDIR unless absolute (IsRelative=0).
+    case "$p" in
+        /*) dir="$p" ;;
+        *)  dir="$FFDIR/$p" ;;
+    esac
+
+    [ -d "$dir" ] || continue
+
+    if ! cmp -s "$SRC" "$dir/user.js" 2>/dev/null; then
+        cp "$SRC" "$dir/user.js"
+        echo "firefox: updated prefs in $(basename "$dir")"
+    fi
+done

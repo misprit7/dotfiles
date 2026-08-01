@@ -67,7 +67,30 @@ input type:pointer {
 }
 
 input type:touchpad {
+    # Tap to click: 1 finger = left, 2 fingers = right, 3 fingers = middle.
+    tap enabled
+    tap_button_map lrm
+
+    # Tap-and-drag: tap, then immediately touch again to drag. drag_lock off
+    # means lifting the finger ends the drag rather than latching it.
+    drag enabled
+    drag_lock disabled
+
+    # This is a clickpad (no separate physical buttons), so divide clicks by
+    # finger count instead of by pad region — 2-finger click = right button,
+    # 3-finger click = middle. Region-based clicking has no right zone here.
+    click_method clickfinger
+
+    # Two-finger scrolling. Direction matches the desktop (not "natural").
+    scroll_method two_finger
     natural_scroll disabled
+
+    # Don't move the pointer from a palm brush while typing.
+    dwt enabled
+
+    # Adaptive acceleration gives fine control slowly and distance quickly.
+    accel_profile adaptive
+    pointer_accel 0.3
 }
 
 ### Autostart ###
@@ -89,3 +112,11 @@ bindsym $mod+$smod+z reload
 
 # Numlock
 input type:keyboard xkb_numlock enabled
+
+### Touchpad gestures ###
+# Three-finger horizontal swipe cycles workspaces on the focused output —
+# the pointer-free equivalent of $mod+n / $mod+p. Content follows the fingers,
+# so swiping left moves to the next workspace. No-ops on machines with no
+# touchpad, so this stays in the shared section.
+bindgesture swipe:3:left  exec ~/.config/sway/bin/cycle-workspace next
+bindgesture swipe:3:right exec ~/.config/sway/bin/cycle-workspace prev

@@ -1,0 +1,38 @@
+#!/bin/sh
+# Install the chezmoi-managed keyd config to /etc/keyd/default.conf.
+#
+# keyd reads only from /etc, which chezmoi does not manage, so this bridges the
+# two. The hash below makes chezmoi re-run this script whenever the source
+# config changes:
+#   sha256: {{ include "dot_config/keyd/default.conf" | sha256sum }}
+#
+# Deliberately a no-op (exit 0) rather than an error when keyd is not installed
+# or when sudo would prompt, so `chezmoi apply` never breaks on a machine that
+# does not use keyd.
+
+set -eu
+
+SRC="$HOME/.config/keyd/default.conf"
+DEST="/etc/keyd/default.conf"
+
+command -v keyd >/dev/null 2>&1 || exit 0
+[ -r "$SRC" ] || exit 0
+
+# Already correct — nothing to do.
+if [ -r "$DEST" ] && cmp -s "$SRC" "$DEST"; then
+    exit 0
+fi
+
+if ! sudo -n true 2>/dev/null; then
+    echo "keyd: $DEST is out of date, but sudo would prompt."
+    echo "keyd: run 'sudo install -Dm644 $SRC $DEST && sudo keyd reload' to apply."
+    exit 0
+fi
+
+sudo install -Dm644 "$SRC" "$DEST"
+echo "keyd: installed $DEST"
+
+# Reload the running daemon if it is active; otherwise leave it to the user.
+if systemctl is-active --quiet keyd 2>/dev/null; then
+    sudo keyd reload && echo "keyd: reloaded"
+fi

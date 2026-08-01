@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Open a 3-window tmux session in the given directory: nvim, claude (Claude Code), and shell.
+#
+# Usage:
+#   wk [DIR]
+# If DIR is omitted, uses current directory.
+#
+# Session name: wk-<basename of DIR> (e.g. wk-epsilon). Use Ctrl+b k to kill the session.
+
+set -e
+
+DIR="${1:-.}"
+DIR="$(cd "$DIR" && pwd)"
+SESSION_NAME="wk-$(basename "$DIR")"
+
+# If we're inside tmux, create session without -d so we switch to it; then new-window adds to current.
+# If not in tmux, create detached then attach at the end.
+in_tmux=0
+[[ -n "${TMUX:-}" ]] && in_tmux=1
+
+if (( in_tmux )); then
+  tmux new-session -s "$SESSION_NAME" -n nvim -c "$DIR" 'nvim .'
+else
+  tmux new-session -d -s "$SESSION_NAME" -n nvim -c "$DIR" 'nvim .'
+fi
+
+# Window 2: Claude Code
+if (( in_tmux )); then
+  tmux new-window -n claude -c "$DIR" 'claude'
+else
+  tmux new-window -a -t "${SESSION_NAME}:0" -n claude -c "$DIR" 'claude'
+fi
+
+# Window 3: shell (this one stays open)
+if (( in_tmux )); then
+  tmux new-window -n shell -c "$DIR"
+else
+  tmux new-window -a -t "${SESSION_NAME}:1" -n shell -c "$DIR"
+fi
+
+tmux select-window -t "${SESSION_NAME}:0"
+
+if (( ! in_tmux )); then
+  tmux attach-session -t "$SESSION_NAME"
+fi

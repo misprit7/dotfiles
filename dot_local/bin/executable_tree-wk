@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# Create one wk-style tmux session per git worktree (each session: nvim, claude, shell).
+# All sessions are launched detached. Prints the commands to attach to any of them.
+#
+# Expects a worktrees layout like:
+#   <repo>/worktrees/   -> one dir per worktree (names: trader-sim, main, ...)
+#   <repo>/<name>       -> worktree path (e.g. <repo>/trader-sim, <repo>/main)
+#
+# Usage:
+#   tree-wk [REPO_ROOT]
+# If REPO_ROOT is omitted, uses current directory.
+#
+# Sessions are named by worktree (e.g. main, trader-sim). Use Ctrl+b k to kill a session.
+
+set -e
+
+REPO_ROOT="${1:-.}"
+REPO_ROOT="$(cd "$REPO_ROOT" && pwd)"
+WORKTREES_DIR="$REPO_ROOT/worktrees"
+
+if [[ ! -d "$WORKTREES_DIR" ]]; then
+  echo "No worktrees directory at: $WORKTREES_DIR" >&2
+  echo "Usage: tree-wk [REPO_ROOT]" >&2
+  exit 1
+fi
+
+# Collect worktree names (directories under worktrees/)
+names=()
+while IFS= read -r -d '' d; do
+  names+=( "$(basename "$d")" )
+done < <(find "$WORKTREES_DIR" -mindepth 1 -maxdepth 1 -type d -print0 | sort -z)
+[[ ${#names[@]} -gt 0 ]] || { echo "No worktree directories found under: $WORKTREES_DIR" >&2; exit 1; }
+
+created=()
+for name in "${names[@]}"; do
+  path="$REPO_ROOT/$name"
+  if [[ ! -d "$path" ]]; then
+    echo "Skipping '$name': not a directory: $path" >&2
+    continue
+  fi
+  # Session name = worktree name (e.g. main, trader-sim)
+  session="$name"
+  # Create detached session with 3 windows (same layout as wk): nvim, claude, shell
+  tmux new-session -d -s "$session" -n nvim -c "$path" -- zsh -c 'nvim .; exec zsh'
+  tmux new-window -a -t "${session}:0" -n claude -c "$path" -- zsh -c 'claude; exec zsh'
+  tmux new-window -a -t "${session}:1" -n shell -c "$path" -- zsh
+  tmux select-window -t "${session}:0"
+  created+=( "$session" )
+done
+
+echo "Sessions created. Connect with:"
+for session in "${created[@]}"; do
+  echo "  tmux attach -t $session"
+done

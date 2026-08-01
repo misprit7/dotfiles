@@ -1,0 +1,5 @@
+[projects."/home/xander"]
+trust_level = "trusted"
+
+[projects."/home/xander/dev/p-mtg/mtgenv"]
+trust_level = "trusted"

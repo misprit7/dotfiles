@@ -7,8 +7,8 @@
 # means it works on any machine regardless of how many profiles exist or what
 # they are called.
 #
-# The hash makes chezmoi re-run this whenever the prefs change:
-#   sha256: {{ include "dot_config/firefox/user.js" | sha256sum }}
+# Runs on every apply: it is cheap, and keying it on source-content changes would
+# miss the case where a new Firefox profile appears.
 #
 # No-ops when Firefox has never been launched (no profiles.ini). In that case
 # the prefs land on the next `chezmoi apply` after first launch.

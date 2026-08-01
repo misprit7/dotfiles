@@ -132,21 +132,16 @@ input type:keyboard xkb_numlock enabled
 # macOS-style. These no-op on machines with no touchpad, so they stay in the
 # shared section rather than the per-machine branch above.
 #
-# Note: libinput only reports swipes of 3 fingers or more — a 2-finger swipe is
-# scrolling — so macOS's 2-finger back/forward cannot be reproduced. Back and
-# forward live on 3 fingers here, and workspace switching moves up to 4.
+# Browser back/forward is deliberately NOT here. libinput reports 2-finger
+# motion as scrolling and only emits swipe events for 3 fingers or more, so the
+# compositor cannot bind it — macOS handles it in the browser for the same
+# reason. It lives in Firefox's browser.gesture.swipe.* prefs instead.
 
-# Three fingers horizontal — browser/file-manager back and forward.
-# Direction matches macOS: content follows the fingers, so swiping right
-# (dragging the page rightwards) goes back. sway cannot synthesise keys
-# itself, hence wtype.
-bindgesture swipe:3:right exec wtype -M alt -k Left -m alt
-bindgesture swipe:3:left  exec wtype -M alt -k Right -m alt
+# Three fingers horizontal — move between workspaces on the focused output,
+# the gesture equivalent of $mod+n / $mod+p (macOS "switch spaces").
+# Content follows the fingers, so swiping left advances to the next workspace.
+bindgesture swipe:3:left  exec ~/.config/sway/bin/cycle-workspace next
+bindgesture swipe:3:right exec ~/.config/sway/bin/cycle-workspace prev
 
 # Three fingers down — jump back to the previously focused workspace.
 bindgesture swipe:3:down exec swaymsg workspace back_and_forth
-
-# Four fingers horizontal — move between workspaces on the focused output,
-# the gesture equivalent of $mod+n / $mod+p (macOS "switch spaces").
-bindgesture swipe:4:left  exec ~/.config/sway/bin/cycle-workspace next
-bindgesture swipe:4:right exec ~/.config/sway/bin/cycle-workspace prev

@@ -142,6 +142,3 @@ input type:keyboard xkb_numlock enabled
 # Content follows the fingers, so swiping left advances to the next workspace.
 bindgesture swipe:3:left  exec ~/.config/sway/bin/cycle-workspace next
 bindgesture swipe:3:right exec ~/.config/sway/bin/cycle-workspace prev
-
-# Three fingers down — jump back to the previously focused workspace.
-bindgesture swipe:3:down exec swaymsg workspace back_and_forth

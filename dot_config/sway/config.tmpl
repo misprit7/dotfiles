@@ -114,9 +114,28 @@ bindsym $mod+$smod+z reload
 input type:keyboard xkb_numlock enabled
 
 ### Touchpad gestures ###
-# Three-finger horizontal swipe cycles workspaces on the focused output —
-# the pointer-free equivalent of $mod+n / $mod+p. Content follows the fingers,
-# so swiping left moves to the next workspace. No-ops on machines with no
-# touchpad, so this stays in the shared section.
-bindgesture swipe:3:left  exec ~/.config/sway/bin/cycle-workspace next
-bindgesture swipe:3:right exec ~/.config/sway/bin/cycle-workspace prev
+# macOS-style. These no-op on machines with no touchpad, so they stay in the
+# shared section rather than the per-machine branch above.
+#
+# Note: libinput only reports swipes of 3 fingers or more — a 2-finger swipe is
+# scrolling — so macOS's 2-finger back/forward cannot be reproduced. Back and
+# forward live on 3 fingers here, and workspace switching moves up to 4.
+
+# Three fingers horizontal — browser/file-manager back and forward.
+# Direction matches macOS: content follows the fingers, so swiping right
+# (dragging the page rightwards) goes back. sway cannot synthesise keys
+# itself, hence wtype.
+bindgesture swipe:3:right exec wtype -M alt -k Left -m alt
+bindgesture swipe:3:left  exec wtype -M alt -k Right -m alt
+
+# Three fingers up — window overview, the Mission Control equivalent.
+# sway has no built-in overview, so this is rofi's window switcher.
+bindgesture swipe:3:up exec rofi -show window
+
+# Three fingers down — jump back to the previously focused workspace.
+bindgesture swipe:3:down exec swaymsg workspace back_and_forth
+
+# Four fingers horizontal — move between workspaces on the focused output,
+# the gesture equivalent of $mod+n / $mod+p (macOS "switch spaces").
+bindgesture swipe:4:left  exec ~/.config/sway/bin/cycle-workspace next
+bindgesture swipe:4:right exec ~/.config/sway/bin/cycle-workspace prev

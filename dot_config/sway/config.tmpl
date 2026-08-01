@@ -143,10 +143,6 @@ input type:keyboard xkb_numlock enabled
 bindgesture swipe:3:right exec wtype -M alt -k Left -m alt
 bindgesture swipe:3:left  exec wtype -M alt -k Right -m alt
 
-# Three fingers up — window overview, the Mission Control equivalent.
-# sway has no built-in overview, so this is rofi's window switcher.
-bindgesture swipe:3:up exec rofi -show window
-
 # Three fingers down — jump back to the previously focused workspace.
 bindgesture swipe:3:down exec swaymsg workspace back_and_forth
 

@@ -9,7 +9,7 @@ icons = "awesome"
 [[block]]
 block = "focused_window"
 
-{{ if (eq .chezmoi.hostname "laptop-arch") }}
+{{ if glob "/sys/class/power_supply/BAT*" }}
 
 #[[block]]
 # block = "networkmanager"

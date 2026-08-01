@@ -1,0 +1,28 @@
+# Third-party zsh dependencies that ~/.zshrc expects to exist.
+# Declared here so a fresh machine gets them from `chezmoi init --apply`
+# instead of needing a separate bootstrap script.
+#
+# Refreshed at most weekly; force an update with `chezmoi apply --refresh-externals`.
+
+[".oh-my-zsh"]
+    type = "git-repo"
+    url = "https://github.com/ohmyzsh/ohmyzsh.git"
+    refreshPeriod = "168h"
+    [".oh-my-zsh".pull]
+        args = ["--ff-only"]
+
+# ZSH_THEME="powerlevel10k/powerlevel10k" in .zshrc resolves to this path.
+[".oh-my-zsh/custom/themes/powerlevel10k"]
+    type = "git-repo"
+    url = "https://github.com/romkatv/powerlevel10k.git"
+    refreshPeriod = "168h"
+    [".oh-my-zsh/custom/themes/powerlevel10k".pull]
+        args = ["--ff-only"]
+
+# Listed in the plugins=(...) line in .zshrc.
+[".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
+    type = "git-repo"
+    url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    refreshPeriod = "168h"
+    [".oh-my-zsh/custom/plugins/zsh-syntax-highlighting".pull]
+        args = ["--ff-only"]

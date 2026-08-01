@@ -8,6 +8,7 @@ include ~/.config/wm/config
 # Export to systemd/dbus for child processes (portals, etc.)
 exec export XDG_CURRENT_DESKTOP=sway && dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
+{{ if eq .chezmoi.hostname "oko" -}}
 ### Monitors ###
 # DP-1 center, HDMI-A-1 right, HDMI-A-2 left (TV)
 output DP-1 pos 0 0 scale 1.5
@@ -36,6 +37,17 @@ workspace R8 output HDMI-A-1
 workspace R9 output HDMI-A-1
 workspace R10 output HDMI-A-1
 workspace TV1 output HDMI-A-2
+{{- else -}}
+### Monitors ###
+# Single built-in panel. Workspaces are not pinned to an output — with one
+# output the L* prefix from ~/.config/sway/bin/* lands here anyway.
+output eDP-1 scale 1.5
+
+### Gaps ###
+# No gaps on the laptop — overrides the shared defaults in ~/.config/wm/config.
+gaps inner 0
+gaps outer 0
+{{- end }}
 
 ### Wallpaper ###
 output * bg /home/xander/Documents/wallpaper/city-skyline.jpg fill

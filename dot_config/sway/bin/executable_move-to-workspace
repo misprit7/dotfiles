@@ -10,6 +10,7 @@ output=$(echo "$ws_json" | jq -r '.[] | select(.focused) | .output')
 
 case "$output" in
     DP-1)     prefix="L" ;;
+    eDP-1)    prefix="L" ;;
     HDMI-A-1) prefix="R" ;;
     HDMI-A-2) prefix="TV" ;;
     *)        exit 1 ;;

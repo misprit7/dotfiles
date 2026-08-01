@@ -1,8 +1,13 @@
+{{ if eq .chezmoi.hostname "oko" -}}
 # Nvidia
 LIBVA_DRIVER_NAME=nvidia
 __GLX_VENDOR_LIBRARY_NAME=nvidia
 NVD_BACKEND=direct
 WLR_NO_HARDWARE_CURSORS=1
+{{- else -}}
+# Intel (intel-media-driver)
+LIBVA_DRIVER_NAME=iHD
+{{- end }}
 
 # Scaling
 GDK_SCALE=1.5

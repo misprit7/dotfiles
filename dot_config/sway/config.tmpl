@@ -39,9 +39,24 @@ workspace R10 output HDMI-A-1
 workspace TV1 output HDMI-A-2
 {{- else -}}
 ### Monitors ###
-# Single built-in panel. Workspaces are not pinned to an output — with one
-# output the L* prefix from ~/.config/sway/bin/* lands here anyway.
+# Single built-in panel.
 output eDP-1 scale 1.5
+
+### Workspace → Output Assignments ###
+# Required even with one output: sway names an output's initial workspace after
+# the first assignment matching it, and falls back to plain "1" when there are
+# none. Without these the session starts on "1", which has no L/R/TV prefix, so
+# ~/.config/sway/bin/* treats it as foreign and it sits alongside the L* ones.
+workspace L1 output eDP-1
+workspace L2 output eDP-1
+workspace L3 output eDP-1
+workspace L4 output eDP-1
+workspace L5 output eDP-1
+workspace L6 output eDP-1
+workspace L7 output eDP-1
+workspace L8 output eDP-1
+workspace L9 output eDP-1
+workspace L10 output eDP-1
 
 ### Gaps ###
 # No gaps on the laptop — overrides the shared defaults in ~/.config/wm/config.

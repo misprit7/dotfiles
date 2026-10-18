@@ -90,11 +90,6 @@ call plug#begin('~/.config/nvim/plugged')
 "Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
-" Plug 'github/copilot.vim'
-
-" imap <silent><script><expr> <C-S> copilot#Accept("\<CR>")
-" let g:copilot_no_tab_map = v:true
-
 " let g:onedark_hide_endofbuffer=1
 " Plug 'joshdick/onedark.vim', { 'as': 'onedark' }
 Plug 'dracula/vim', {'as':'dracula'}

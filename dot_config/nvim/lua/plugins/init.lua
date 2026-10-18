@@ -3,6 +3,5 @@
 return {
   require 'plugins.lazygit',
   require 'plugins.ansi',
-  require 'plugins.copilot',
   require 'plugins.nx',
 }

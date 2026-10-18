@@ -40,10 +40,12 @@ tooltip label {
 
 #workspaces button {
   color: @module-fg;
+  background: @inactive-bg;
+  border: 1px solid @inactive-br;
   border-radius: 8px;
   box-shadow: none;
-  margin: 2px 0;
-  padding: 0 2px;
+  margin: 2px;
+  padding: 0 6px;
   transition: none;
 }
 #workspaces button:hover {

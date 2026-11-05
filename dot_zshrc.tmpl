@@ -19,9 +19,10 @@ plugins=(gitfast zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-# setopt share_history
-unsetopt share_history
-# setopt APPEND_HISTORY
+# Load shared history at startup, then keep each session's history local.
+# Save commands immediately so future sessions can see them.
+setopt APPEND_HISTORY INC_APPEND_HISTORY
+unsetopt SHARE_HISTORY INC_APPEND_HISTORY_TIME
 
 # zsh parameter completion for the dotnet CLI
 _dotnet_zsh_complete()
@@ -75,6 +76,13 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # Add python script path
 export PATH="$HOME/.local/bin:$PATH"
+
+# Search this session's history interactively with / in vi command mode or Ctrl-R.
+if command -v fzf >/dev/null 2>&1; then
+  export FZF_CTRL_R_OPTS='--exact --no-sort --no-multi --height=40% --layout=reverse --border --prompt="History> "'
+  source <(FZF_CTRL_T_COMMAND= FZF_ALT_C_COMMAND= fzf --zsh)
+  bindkey -M vicmd '/' fzf-history-widget
+fi
 
 # Cargo
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -157,3 +165,12 @@ if test -n "$KITTY_INSTALLATION_DIR"; then
     kitty-integration
     unfunction kitty-integration
 fi
+
+# >>> Codex installer >>>
+export PATH="/home/xander/.local/bin:$PATH"
+# <<< Codex installer <<<
+
+# BEGIN personal Codex launch defaults
+unalias codex 2>/dev/null || true
+alias codex='codex --no-daemon --dangerously-bypass-approvals-and-sandbox'
+# END personal Codex launch defaults

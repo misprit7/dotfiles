@@ -1,0 +1,29 @@
+#!/bin/sh
+# Install a sudoers drop-in giving {{ .chezmoi.username }} passwordless sudo, so
+# non-interactive tools (e.g. Claude Code) can run sudo without a terminal.
+#
+# A plain run_ script (not run_onchange_) so it retries on every apply until it
+# succeeds; the cmp check below makes it a no-op once installed. The first
+# install needs a password, so it only prompts when stdin is a terminal.
+
+set -eu
+
+DEST="/etc/sudoers.d/10-{{ .chezmoi.username }}-nopasswd"
+RULE='{{ .chezmoi.username }} ALL=(ALL:ALL) NOPASSWD: ALL'
+
+TMP=$(mktemp)
+trap 'rm -f "$TMP"' EXIT
+printf '%s\n' "$RULE" > "$TMP"
+
+if sudo -n true 2>/dev/null; then
+    # Already passwordless; skip if the drop-in is current.
+    sudo -n cmp -s "$TMP" "$DEST" 2>/dev/null && exit 0
+elif ! [ -t 0 ]; then
+    echo "sudoers: passwordless sudo not set up yet; run 'chezmoi apply' in a terminal to install $DEST."
+    exit 0
+fi
+
+# Validate before installing: a broken sudoers file can lock you out of sudo.
+sudo visudo -cqf "$TMP"
+sudo install -m 0440 -o root -g root "$TMP" "$DEST"
+echo "sudoers: installed $DEST"

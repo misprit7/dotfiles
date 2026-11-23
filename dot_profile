@@ -4,3 +4,8 @@
 
 # . "$HOME/.local/share/../bin/env"
 export PATH="$HOME/.npm-global/bin:$PATH"
+
+# Qt6 apps (Dolphin etc.) use the qt6ct Breeze Dark palette. Must be set here, not only in
+# environment.d: greetd/tty logins source this file before starting sway, but never read
+# environment.d, so apps launched from sway would otherwise miss it.
+export QT_QPA_PLATFORMTHEME=qt6ct

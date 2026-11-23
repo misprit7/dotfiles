@@ -2,7 +2,7 @@
 set $mod Mod1
 set $smod Shift
 set $terminal kitty
-set $browser firefox
+set $browser google-chrome-stable
 set $menu fuzzel
 
 ### Look and Feel ###

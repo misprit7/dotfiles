@@ -344,7 +344,7 @@
     "return-type": "json",
     "format": "{}",
     "on-click": "~/.config/waybar/scripts/system-update.sh up",
-    "interval": 60,
+    "interval": 3600,
     "tooltip": true,
     "signal": 20, // I'm not sure what this does
     "min-length": 1,

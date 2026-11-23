@@ -1,0 +1,13 @@
+#!/bin/sh
+# Run python3 with DaVinci Resolve's scripting module (DaVinciResolveScript) importable.
+#   resolve-python script.py [args]
+#   resolve-python - <<'PY' ... PY
+R=${RESOLVE_ROOT:-/opt/resolve}
+if [ ! -e "$R/libs/Fusion/fusionscript.so" ]; then
+  echo "resolve-python: DaVinci Resolve not found at $R (set RESOLVE_ROOT)" >&2
+  exit 127
+fi
+export RESOLVE_SCRIPT_API="$R/Developer/Scripting"
+export RESOLVE_SCRIPT_LIB="$R/libs/Fusion/fusionscript.so"
+export PYTHONPATH="$RESOLVE_SCRIPT_API/Modules${PYTHONPATH:+:$PYTHONPATH}"
+exec python3 "$@"

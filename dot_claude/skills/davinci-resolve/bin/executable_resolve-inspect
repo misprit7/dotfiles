@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+"""Print the state of the project open in the running DaVinci Resolve.
+
+  resolve-inspect                 project summary, every timeline, current timeline's clips
+  resolve-inspect -t NAME         show clips of timeline NAME instead of the current one
+  resolve-inspect --media         also list every media pool clip
+  resolve-inspect --json          same data as JSON
+"""
+import argparse
+import json
+import os
+import sys
+
+ROOT = os.environ.get("RESOLVE_ROOT", "/opt/resolve")
+os.environ.setdefault("RESOLVE_SCRIPT_API", f"{ROOT}/Developer/Scripting")
+os.environ.setdefault("RESOLVE_SCRIPT_LIB", f"{ROOT}/libs/Fusion/fusionscript.so")
+sys.path.append(f"{ROOT}/Developer/Scripting/Modules")
+
+
+def connect():
+    try:
+        import DaVinciResolveScript as dvr
+    except ImportError as e:
+        sys.exit(f"cannot import DaVinciResolveScript from {ROOT}: {e}")
+    resolve = dvr.scriptapp("Resolve")
+    if resolve is None:
+        sys.exit("no connection: Resolve is not running, or Preferences > System > General > "
+                 "'External scripting using' is not set to Local")
+    return resolve
+
+
+def num(x, default=0.0):
+    try:
+        return float(x)
+    except (TypeError, ValueError):
+        return default
+
+
+def timeline_info(tl, with_items):
+    t0 = tl.GetStartFrame()
+    info = {
+        "name": tl.GetName(),
+        "start_frame": t0,
+        "end_frame": tl.GetEndFrame(),
+        "start_timecode": tl.GetStartTimecode(),
+        "fps": num(tl.GetSetting("timelineFrameRate")),
+        "resolution": f'{tl.GetSetting("timelineResolutionWidth")}x{tl.GetSetting("timelineResolutionHeight")}',
+        "markers": tl.GetMarkers() or {},
+        "tracks": [],
+    }
+    for kind in ("video", "audio", "subtitle"):
+        for i in range(1, tl.GetTrackCount(kind) + 1):
+            track = {"type": kind, "index": i, "name": tl.GetTrackName(kind, i),
+                     "enabled": tl.GetIsTrackEnabled(kind, i), "locked": tl.GetIsTrackLocked(kind, i)}
+            items = tl.GetItemListInTrack(kind, i) or []
+            track["item_count"] = len(items)
+            if with_items:
+                track["items"] = []
+                for it in items:
+                    start, dur = int(it.GetStart()), int(it.GetDuration())
+                    left = it.GetLeftOffset()
+                    track["items"].append({
+                        "name": it.GetName(),
+                        "start": start,                 # absolute timeline frame
+                        "offset": start - t0,           # 0-based from timeline start
+                        "duration": dur,
+                        "source_in": left,              # frames into the source clip
+                        "source_out": left + dur if left is not None else None,
+                        "enabled": it.GetClipEnabled(),
+                    })
+            info["tracks"].append(track)
+    return info
+
+
+def folder_info(folder, path, with_clips):
+    here = f"{path}/{folder.GetName()}" if path else folder.GetName()
+    clips = folder.GetClipList() or []
+    out = [{"folder": here, "clip_count": len(clips)}]
+    if with_clips:
+        out[0]["clips"] = []
+        for c in clips:
+            p = c.GetClipProperty() or {}
+            out[0]["clips"].append({"name": c.GetName(), "type": p.get("Type"), "frames": p.get("Frames"),
+                                    "fps": p.get("FPS"), "duration": p.get("Duration"),
+                                    "resolution": p.get("Resolution"), "path": p.get("File Path")})
+    for sub in folder.GetSubFolderList() or []:
+        out += folder_info(sub, here, with_clips)
+    return out
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("-t", "--timeline", help="timeline to detail (default: current)")
+    ap.add_argument("--media", action="store_true", help="list media pool clips")
+    ap.add_argument("--json", action="store_true")
+    args = ap.parse_args()
+
+    resolve = connect()
+    project = resolve.GetProjectManager().GetCurrentProject()
+    if project is None:
+        sys.exit("Resolve is running but no project is open")
+    current = project.GetCurrentTimeline()
+    current_name = current.GetName() if current else None
+    detail = args.timeline or current_name
+    timelines = [project.GetTimelineByIndex(i) for i in range(1, project.GetTimelineCount() + 1)]
+    if args.timeline and args.timeline not in [t.GetName() for t in timelines]:
+        sys.exit(f"no timeline named {args.timeline!r}; have: {[t.GetName() for t in timelines]}")
+
+    state = {
+        "app": f"{resolve.GetProductName()} {resolve.GetVersionString()}",
+        "page": resolve.GetCurrentPage(),
+        "project": project.GetName(),
+        "fps": num(project.GetSetting("timelineFrameRate")),
+        "resolution": f'{project.GetSetting("timelineResolutionWidth")}x{project.GetSetting("timelineResolutionHeight")}',
+        "current_timeline": current_name,
+        "timelines": [timeline_info(t, t.GetName() == detail) for t in timelines],
+        "media_pool": folder_info(project.GetMediaPool().GetRootFolder(), "", args.media),
+    }
+    if args.json:
+        json.dump(state, sys.stdout, indent=1, default=str)
+        print()
+        return
+
+    print(f'{state["app"]} | page: {state["page"]}')
+    print(f'Project: {state["project"]} | {state["fps"]:g} fps | {state["resolution"]} | {len(timelines)} timeline(s)')
+    for t in state["timelines"]:
+        frames = t["end_frame"] - t["start_frame"]
+        secs = frames / t["fps"] if t["fps"] else 0
+        mark = " (current)" if t["name"] == current_name else ""
+        print(f'\nTimeline: {t["name"]}{mark} | starts at frame {t["start_frame"]} ({t["start_timecode"]}) | '
+              f'{frames} frames, {secs:.1f} s | {t["fps"]:g} fps | {len(t["markers"])} marker(s)')
+        for off, m in sorted(t["markers"].items()):
+            print(f'  marker +{int(off)} {m.get("color")} {m.get("name")!r} {m.get("note") or ""}'.rstrip())
+        for tr in t["tracks"]:
+            flags = "".join([" disabled" if not tr["enabled"] else "", " locked" if tr["locked"] else ""])
+            print(f'  {tr["type"][0].upper()}{tr["index"]} {tr["name"]!r}: {tr["item_count"]} item(s){flags}')
+            for it in tr.get("items", []):
+                src = "" if it["source_in"] is None else f' src {it["source_in"]:g}..{it["source_out"]:g}'
+                print(f'    +{it["offset"]:<7} abs {it["start"]:<8} dur {it["duration"]:<6} {it["name"]}{src}'
+                      f'{"" if it["enabled"] else " (disabled)"}')
+    print("\nMedia pool:")
+    for f in state["media_pool"]:
+        print(f'  {f["folder"]}: {f["clip_count"]} clip(s)')
+        for c in f.get("clips", []):
+            print(f'    {c["name"]} | {c["type"]} | {c["frames"]} frames @ {c["fps"]} | {c["resolution"]} | {c["path"]}')
+
+
+if __name__ == "__main__":
+    main()

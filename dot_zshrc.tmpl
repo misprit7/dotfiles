@@ -41,7 +41,25 @@ alias c=chezmoi
 alias q=exit
 alias sv=sudoedit
 alias z=zathura
-alias claude="claude --dangerously-skip-permissions"
+# Claude Code: skip permission prompts, and never show the "Accessing workspace... do you
+# trust this folder?" prompt. There is no setting for the latter; trust is a per-folder flag
+# in ~/.claude.json (not in chezmoi: it is runtime state). "/" covers every folder outside a
+# git repo. A repo is checked by its own root, and a worktree by its main repo's root, so
+# mark those before starting.
+claude() {
+  local cfg=$HOME/.claude.json top common tmp
+  local -a keys=(/)
+  top=$(git rev-parse --show-toplevel 2>/dev/null) && keys+=($top)
+  common=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null) && keys+=(${common%/.git})
+  if [[ -f $cfg ]] && (( $+commands[jq] )) && ! jq -e \
+      '. as $c | all($ARGS.positional[]; . as $k | $c.projects[$k].hasTrustDialogAccepted == true)' \
+      $cfg --args $keys >/dev/null 2>&1; then
+    tmp=$(mktemp $cfg.XXXXXX) && jq \
+      'reduce $ARGS.positional[] as $k (.; .projects[$k] = ((.projects[$k] // {}) + {hasTrustDialogAccepted: true}))' \
+      $cfg --args $keys > $tmp && chmod 600 $tmp && mv $tmp $cfg || rm -f $tmp
+  fi
+  command claude --dangerously-skip-permissions "$@"
+}
 alias codex="codex --yolo"
 # alias v=nvim
 

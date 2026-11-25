@@ -22,3 +22,13 @@ kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle Breeze
 # Drop moves files instead of popping up the Copy/Move/Link menu (same drive only;
 # cross-drive drops still ask — hold Shift to move, Ctrl to copy)
 kwriteconfig6 --file kdeglobals --group KDE --key DndBehavior MoveIfSameDevice
+# Thumbnails for files on phones and network shares (afc://, mtp://, smb://). The
+# default 0 means "never preview remote files"; the value is the size limit in bytes.
+kwriteconfig6 --file kdeglobals --group PreviewSettings --key MaximumRemoteSize 1073741824
+# Dolphin's list of enabled thumbnailers is a whitelist once it has been saved, so
+# video thumbnails (package ffmpegthumbs) have to be added to it.
+plugins=$(kreadconfig6 --file dolphinrc --group PreviewSettings --key Plugins)
+case ",$plugins," in
+  ,, | *,ffmpegthumbs,*) ;;
+  *) kwriteconfig6 --file dolphinrc --group PreviewSettings --key Plugins "$plugins,ffmpegthumbs" ;;
+esac

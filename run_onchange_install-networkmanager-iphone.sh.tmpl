@@ -1,0 +1,40 @@
+{{ if eq .chezmoi.hostname "oko" -}}
+#!/bin/sh
+# Keep NetworkManager off the iPhone's USB network interface on oko (a desktop on wired
+# ethernet). Installs a drop-in in /etc/NetworkManager/conf.d, which chezmoi does not
+# manage. A no-op when sudo would prompt, so `chezmoi apply` never breaks.
+
+set -eu
+
+DEST=/etc/NetworkManager/conf.d/20-iphone-usb.conf
+NEW=$(mktemp)
+trap 'rm -f "$NEW"' EXIT
+
+cat > "$NEW" <<'CONF'
+# An iPhone offers its Personal Hotspot over the USB cable whenever it is plugged in with
+# the hotspot switched on. NetworkManager joins it automatically, and as the home network
+# has no IPv6, the phone then carries all IPv6 traffic (most of the web) at mobile-hotspot
+# speed and on the phone's data plan.
+#
+# Leave the phone's network interface alone. Copying files from the phone (usbmuxd) does
+# not use it. To tether on purpose: nmcli device set <interface> managed yes
+[device-iphone-usb]
+match-device=driver:ipheth
+managed=0
+CONF
+
+command -v NetworkManager >/dev/null 2>&1 || exit 0
+if [ -r "$DEST" ] && cmp -s "$NEW" "$DEST"; then
+    exit 0
+fi
+if ! sudo -n true 2>/dev/null; then
+    echo "NetworkManager: $DEST is out of date, but sudo would prompt."
+    exit 0
+fi
+
+sudo install -Dm644 "$NEW" "$DEST"
+echo "NetworkManager: installed $DEST"
+if systemctl is-active --quiet NetworkManager 2>/dev/null; then
+    sudo nmcli general reload conf && echo "NetworkManager: reloaded configuration"
+fi
+{{ end -}}

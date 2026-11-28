@@ -1,0 +1,17 @@
+[Unit]
+Description=17Lands client (uploads MTG Arena games and drafts to 17lands.com)
+# The client is installed per machine (pip install --user seventeenlands), so do
+# nothing on a machine that does not have it.
+ConditionPathExists=%h/.local/bin/seventeenlands
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+# Its "update required" and "detailed logs are off" warnings are Tk dialogs, which
+# need DISPLAY. The sway config exports DISPLAY to systemd for this.
+ExecStart=%h/.local/bin/seventeenlands
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=graphical-session.target

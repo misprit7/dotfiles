@@ -6,7 +6,7 @@ include ~/.config/wm/config
 # (sourced by systemd for graphical sessions via SDDM)
 
 # Export to systemd/dbus for child processes (portals, etc.)
-exec export XDG_CURRENT_DESKTOP=sway && dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec export XDG_CURRENT_DESKTOP=sway && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
 {{ if eq .chezmoi.hostname "oko" -}}
 ### Monitors ###

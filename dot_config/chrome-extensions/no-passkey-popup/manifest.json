@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "No Chrome passkey popup",
+  "version": "1.0",
+  "description": "Stops Chrome's own \"Use a passkey from another device\" dropdown from opening on login fields, where it covers the password manager's menu. Passkey sign-in buttons keep working.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0T4yjlz7y44+uaOGVfiZkPR3W6XXkFcczF5YVDlw59tNZQK5oH3Nm6beBTd705AfuXpP7yiQV5qTaZKMbdB5JS/DRnhFBOuygXcFFE0o2tMQMsj8FcK/IzWJSFQcgQk+ZQhlByxNnE9eKb9G5BUfRhBE6z3dvUOYH7PMsm7NWrOmlpKo5gAR08LPxmGKvtvJugNmUIdMxFHuqXuo8qEej7EtvcTpwhMzaPQS79tTHo+0epB34ZdMBUGUeMk0jZ4WoATT8cnsrmfkhQCYFtNxwDrGhS7hUylsyK0Jc5dJ+MKwSGJ3GyaeDPMB76E+GDDoKiVkH9pi9bISmj/QzanwlwIDAQAB",
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["block-passkey-autofill.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": true,
+      "match_origin_as_fallback": true
+    }
+  ]
+}
